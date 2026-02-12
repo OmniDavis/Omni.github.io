@@ -1,94 +1,99 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <meta charset="UTF-8">
-  <title>Para ti ❤️</title>
-  <style>
-    body {
-      font-family: Arial;
-      background: #ffe6f0;
-      text-align: center;
-      padding: 50px;
-      overflow: hidden;
-    }
+<meta charset="UTF-8">
+<title>Para ti ❤️</title>
 
-    h2 { color: #d6336c; }
+<style>
+body {
+  font-family: Arial;
+  background: #ffe6f0;
+  text-align: center;
+  padding: 50px;
+  overflow-x: hidden;
+  overflow-y: auto;
+}
 
-    .envelope {
-      width: 300px;
-      height: 200px;
-      background: #ff9bb5;
-      margin: 100px auto;
-      position: relative;
-      cursor: pointer;
-      border-radius: 10px;
-      box-shadow: 0 10px 25px rgba(0,0,0,0.2);
-      animation: idle 3s infinite;
-    }
+h2 { color: #d6336c; }
 
-    .flap {
-      position: absolute;
-      top: 0;
-      width: 100%;
-      height: 100%;
-      background: #ff7fa3;
-      clip-path: polygon(0 0, 100% 0, 50% 60%);
-      transform-origin: top;
-      transition: transform 1s;
-    }
+.envelope {
+  width: 300px;
+  height: 200px;
+  background: #ff9bb5;
+  margin: 100px auto;
+  position: relative;
+  cursor: pointer;
+  border-radius: 10px;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+  animation: idle 3s infinite;
+}
 
-    .open {
-      animation: chest 1.2s forwards;
-    }
+.flap {
+  position: absolute;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background: #ff7fa3;
+  clip-path: polygon(0 0, 100% 0, 50% 60%);
+  transform-origin: top;
+  transition: transform 1s;
+}
 
-    .open .flap {
-      transform: rotateX(180deg);
-    }
+.open {
+  animation: chest 1.2s forwards;
+}
 
-    .letter {
-      display: none;
-      background: white;
-      padding: 30px;
-      border-radius: 15px;
-      max-width: 500px;
-      margin: 30px auto;
-      animation: fadeIn 1.5s;
-    }
+.open .flap {
+  transform: rotateX(180deg);
+}
 
-    .open + .letter {
-      display: block;
-    }
+.letter {
+  display: none;
+  background: white;
+  padding: 30px;
+  border-radius: 15px;
+  max-width: 500px;
+  margin: 50px auto;
+  animation: fadeIn 1.5s;
+}
 
-    img {
-      width: 100%;
-      border-radius: 10px;
-      margin-top: 15px;
-    }
+.open + .letter {
+  display: block;
+}
 
-    @keyframes chest {
-      0%   { transform: scale(1) rotate(0deg); }
-      30%  { transform: scale(1.2) rotate(2deg); }
-      50%  { transform: scale(1.3) rotate(-2deg); }
-      70%  { transform: scale(1.2) rotate(2deg); }
-      100% { transform: scale(1) rotate(0deg); }
-    }
+img {
+  width: 100%;
+  border-radius: 10px;
+  margin-top: 15px;
+}
 
-    @keyframes idle {
-      0%,100% { transform: scale(1); }
-      50% { transform: scale(1.05); }
-    }
+/* Animaciones */
 
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(20px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-  </style>
+@keyframes chest {
+  0%   { transform: scale(1) rotate(0deg); }
+  30%  { transform: scale(1.2) rotate(3deg); }
+  50%  { transform: scale(1.35) rotate(-3deg); }
+  70%  { transform: scale(1.2) rotate(2deg); }
+  100% { transform: scale(1) rotate(0deg); }
+}
+
+@keyframes idle {
+  0%,100% { transform: scale(1); }
+  50% { transform: scale(1.05); }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(40px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+</style>
 </head>
+
 <body>
 
 <h2>Haz click en la carta 💌</h2>
 
-<div class="envelope" onclick="this.classList.add('open')">
+<div class="envelope" onclick="openLetter(this)">
   <div class="flap"></div>
 </div>
 
@@ -101,6 +106,15 @@
     Te quiero mas de lo que estas palabras pueden decir.
   </p>
 </div>
+
+<audio id="music" src="musica.mp3"></audio>
+
+<script>
+function openLetter(el) {
+  el.classList.add("open");
+  document.getElementById("music").play();
+}
+</script>
 
 </body>
 </html>
