@@ -6,113 +6,147 @@
 
 <style>
 body {
+  margin:0;
   font-family: Arial;
-  background: #ffe6f0;
-  text-align: center;
-  padding: 50px;
-  overflow-x: hidden;
-  overflow-y: auto;
+  background:#ffe6f0;
+  text-align:center;
+  overflow-x:hidden;
 }
 
-h2 { color: #d6336c; }
+#title {
+  color:#d6336c;
+  margin-top:40px;
+  font-size:26px;
+  transition:1s;
+}
+
+.hide-title {
+  opacity:0;
+  transform:translateY(-40px);
+}
 
 .envelope {
-  width: 300px;
-  height: 200px;
-  background: #ff9bb5;
-  margin: 100px auto;
-  position: relative;
-  cursor: pointer;
-  border-radius: 10px;
-  box-shadow: 0 10px 25px rgba(0,0,0,0.2);
-  animation: idle 3s infinite;
+  width:300px;
+  height:200px;
+  background:#ff9bb5;
+  margin:80px auto;
+  position:relative;
+  cursor:pointer;
+  border-radius:10px;
+  box-shadow:0 15px 30px rgba(0,0,0,.25);
+  animation:idle 3s infinite;
 }
 
 .flap {
-  position: absolute;
-  top: 0;
-  width: 100%;
-  height: 100%;
-  background: #ff7fa3;
+  position:absolute;
+  top:0;
+  width:100%;
+  height:100%;
+  background:#ff7fa3;
   clip-path: polygon(0 0, 100% 0, 50% 60%);
-  transform-origin: top;
-  transition: transform 1s;
+  transform-origin:top;
+  transition:1s;
 }
 
 .open {
-  animation: chest 1.2s forwards;
+  animation:chest 1.2s forwards;
 }
 
 .open .flap {
-  transform: rotateX(180deg);
+  transform:rotateX(180deg);
 }
 
 .letter {
-  display: none;
-  background: white;
-  padding: 30px;
-  border-radius: 15px;
-  max-width: 500px;
-  margin: 50px auto;
-  animation: fadeIn 1.5s;
+  position:relative;
+  opacity:0;
+  transform:translateY(-120px);
+  transition:1.5s;
 }
 
-.open + .letter {
-  display: block;
+.show-letter {
+  opacity:1;
+  transform:translateY(0);
+}
+
+.card {
+  background:white;
+  padding:30px;
+  border-radius:15px;
+  max-width:500px;
+  margin:30px auto;
+  box-shadow:0 10px 25px rgba(0,0,0,.2);
 }
 
 img {
-  width: 100%;
-  border-radius: 10px;
-  margin-top: 15px;
+  width:100%;
+  border-radius:10px;
+  margin:15px 0;
 }
 
-/* Animaciones */
+#type {
+  font-size:18px;
+  line-height:1.6;
+}
 
 @keyframes chest {
-  0%   { transform: scale(1) rotate(0deg); }
-  30%  { transform: scale(1.2) rotate(3deg); }
-  50%  { transform: scale(1.35) rotate(-3deg); }
-  70%  { transform: scale(1.2) rotate(2deg); }
-  100% { transform: scale(1) rotate(0deg); }
+  0% {transform:scale(1);}
+  30%{transform:scale(1.2) rotate(2deg);}
+  50%{transform:scale(1.3) rotate(-2deg);}
+  70%{transform:scale(1.2) rotate(2deg);}
+  100%{transform:scale(1);}
 }
 
 @keyframes idle {
-  0%,100% { transform: scale(1); }
-  50% { transform: scale(1.05); }
-}
-
-@keyframes fadeIn {
-  from { opacity: 0; transform: translateY(40px); }
-  to { opacity: 1; transform: translateY(0); }
+  0%,100%{transform:scale(1);}
+  50%{transform:scale(1.05);}
 }
 </style>
 </head>
 
 <body>
 
-<h2>Haz click en la carta 💌</h2>
+<h2 id="title">Haz click en la carta 💌</h2>
 
 <div class="envelope" onclick="openLetter(this)">
   <div class="flap"></div>
 </div>
 
-<div class="letter">
-  <h1>Hola mi amor 💕</h1>
-  <img src="foto.jpg">
-  <p>
-    Esta pagina es solo para ti.<br>
-    Gracias por estar conmigo.<br>
-    Te quiero mas de lo que estas palabras pueden decir.
-  </p>
+<div class="letter" id="letter">
+  <div class="card">
+    <h1>Hola mi amor 💕</h1>
+    <img src="foto.jpg">
+    <p id="type"></p>
+  </div>
 </div>
 
-<audio id="music" src="musica.mp3"></audio>
+<audio id="music" src="musica.mp3" loop></audio>
 
 <script>
-function openLetter(el) {
+const text = `Esta pagina es solo para ti.
+Gracias por estar conmigo.
+Te quiero mas de lo que estas palabras pueden decir.`;
+
+let i = 0;
+const speed = 40;
+
+function openLetter(el){
   el.classList.add("open");
+  document.getElementById("title").classList.add("hide-title");
   document.getElementById("music").play();
+
+  setTimeout(()=>{
+    document.getElementById("letter").classList.add("show-letter");
+    typeWriter();
+  },1200);
+}
+
+function typeWriter(){
+  if(i < text.length){
+    document.getElementById("type").innerHTML += 
+      text[i] === "\n" ? "<br>" : text[i];
+    i++;
+    setTimeout(typeWriter, speed);
+  }
 }
 </script>
 
