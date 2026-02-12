@@ -10,29 +10,78 @@
       text-align: center;
       padding: 50px;
     }
-    h1 { color: #d6336c; }
-    .card {
+
+    .envelope {
+      width: 300px;
+      height: 200px;
+      background: #ff9bb5;
+      margin: auto;
+      position: relative;
+      cursor: pointer;
+      border-radius: 10px;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+    }
+
+    .flap {
+      position: absolute;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      background: #ff7fa3;
+      clip-path: polygon(0 0, 100% 0, 50% 60%);
+      transition: transform 1s;
+      transform-origin: top;
+    }
+
+    .letter {
+      display: none;
       background: white;
       padding: 30px;
       border-radius: 15px;
       max-width: 500px;
-      margin: auto;
+      margin: 30px auto;
+      animation: fadeIn 1.5s;
     }
+
+    .open .flap {
+      transform: rotateX(180deg);
+    }
+
+    .open + .letter {
+      display: block;
+    }
+
+    h1 { color: #d6336c; }
+
     img {
       width: 100%;
       border-radius: 10px;
+      margin-top: 15px;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
     }
   </style>
 </head>
 <body>
-  <div class="card">
+
+  <h2>Haz click en la carta 💌</h2>
+
+  <div class="envelope" onclick="this.classList.add('open')">
+    <div class="flap"></div>
+  </div>
+
+  <div class="letter">
     <h1>Hola mi amor 💕</h1>
     <img src="foto.jpg">
     <p>
-      Esta pagina es solo para ti.  
-      Gracias por estar conmigo.  
+      Esta pagina es solo para ti.<br>
+      Gracias por estar conmigo.<br>
       Te quiero mas de lo que estas palabras pueden decir.
     </p>
   </div>
+
 </body>
 </html>
