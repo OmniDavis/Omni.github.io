@@ -45,9 +45,9 @@ body {
 .letter {
   position: relative;
   background: transparent;
-  padding: 30px;
+  padding: 40px 30px; /* más padding vertical */
   border-radius: 15px;
-  max-width: 500px; /* aumentado de 400px */
+  max-width: 550px; /* más ancho */
   width: 90%;
   aspect-ratio: 3/4;
   margin: 0 auto;
@@ -59,7 +59,7 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
+  justify-content: space-evenly; /* distribuye mejor el espacio */
 }
 
 /* Fondo de flores dentro de la carta */
@@ -80,25 +80,25 @@ body {
 .bouquet-container { position: relative; z-index: 1; }
 
 .letter.show {
-  transform: scale(1) translateY(-60px);
+  transform: scale(1) translateY(-200px); /* sube mucho más */
   opacity: 1;
 }
 
 /* TEXTO */
 .letter h1 {
   color: white;
-  margin-bottom: 15px;
+  margin-bottom: 10px;
   text-align: center;
-  font-size: 24px; /* aumentado de 20px */
+  font-size: 26px;
   text-shadow: 0 2px 4px rgba(0,0,0,0.5);
 }
 
 /* FOTO */
 .letter img {
-  width: 70%;
-  max-width: 280px; /* aumentado de 220px */
+  width: 65%;
+  max-width: 300px;
   display: block;
-  margin: 15px auto;
+  margin: 10px auto;
   border-radius: 10px;
   box-shadow: 0 6px 15px rgba(0,0,0,0.2);
 }
@@ -106,18 +106,18 @@ body {
 /* MENSAJE TYPEWRITER */
 #message {
   color: white;
-  font-size: 16px; /* aumentado de 14px */
-  line-height: 1.5;
+  font-size: 17px;
+  line-height: 1.6;
   text-align: center;
-  min-height: 90px;
-  margin: 15px 0;
+  min-height: 100px;
+  margin: 10px 0;
   text-shadow: 0 2px 4px rgba(0,0,0,0.5);
 }
 
 /* RAMO DE FLORES PNG */
 .bouquet-container {
-  width: 120px; /* aumentado de 100px */
-  margin: 15px auto 0;
+  width: 130px;
+  margin: 10px auto 0;
   opacity: 0;
   transform: scale(0);
   transition: all 1s ease;
@@ -135,11 +135,12 @@ body {
 /* RESPONSIVE */
 @media (max-width: 600px) {
   .envelope-container { width: 280px; height: 190px; }
-  .letter { padding: 20px; max-width: 90%; }
-  .letter h1 { font-size: 20px; }
-  #message { font-size: 14px; }
-  .letter img { max-width: 220px; }
-  .bouquet-container { width: 100px; }
+  .letter { padding: 30px 20px; max-width: 90%; }
+  .letter.show { transform: scale(1) translateY(-150px); }
+  .letter h1 { font-size: 22px; }
+  #message { font-size: 15px; }
+  .letter img { max-width: 240px; }
+  .bouquet-container { width: 110px; }
 }
 </style>
 </head>
