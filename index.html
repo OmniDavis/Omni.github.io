@@ -5,229 +5,83 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Para ti 💌</title>
 <style>
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-}
+* { margin:0; padding:0; box-sizing:border-box; font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
 body {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  min-height: 100vh;
-  background-color: #111;
-  transition: background 1s;
+  display:flex; flex-direction:column; align-items:center; justify-content:center;
+  min-height:100vh; background-color:#111; transition: background 1s;
 }
 
 /* TEXTO HINT */
 .hint {
-  color: white;
-  font-size: 22px;
-  margin-bottom: 40px;
-  text-shadow: 0 3px 15px rgba(0,0,0,0.4);
-  animation: float 2s ease-in-out infinite;
-  transition: all 0.8s;
-  position: relative;
-  z-index: 10;
+  color:white; font-size:22px; margin-bottom:40px; text-shadow:0 3px 15px rgba(0,0,0,0.4);
+  animation: float 2s ease-in-out infinite; position:relative; z-index:10;
 }
-.hint.hide {
-  opacity: 0;
-  transform: translateY(-30px);
-  pointer-events: none;
-}
-@keyframes float {
-  0%,100% { transform: translateY(0); }
-  50% { transform: translateY(-10px); }
-}
-
-/* CONTENEDOR SOBRE */
-.envelope-container {
-  width: 320px;
-  height: 220px;
-  position: relative;
-  cursor: pointer;
-  margin-bottom: 50px;
-  z-index: 10;
-  transition: all 0.3s, opacity 1s 1.2s;
-}
-.envelope-container:hover {
-  transform: scale(1.03);
-}
-.envelope-container.open {
-  pointer-events: none;
-  opacity: 0;
-}
+.hint.hide { opacity:0; transform:translateY(-30px); pointer-events:none; }
+@keyframes float { 0%,100%{transform:translateY(0);}50%{transform:translateY(-10px);} }
 
 /* SOBRE */
-.envelope {
-  width: 100%;
-  height: 100%;
-  background: linear-gradient(135deg, #ff6f91 0%, #ff8fab 100%);
-  border-radius: 10px;
-  position: relative;
-  overflow: hidden;
-  box-shadow: 0 15px 40px rgba(0,0,0,0.3);
-  animation: idle 3s ease-in-out infinite;
-}
-@keyframes idle {
-  0%,100% { transform: translateY(0); }
-  50% { transform: translateY(-5px); }
-}
-
-/* SOLAPA DEL SOBRE */
-.flap {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: linear-gradient(180deg, #ff8fab 0%, #ffa3bd 100%);
-  clip-path: polygon(0 0, 100% 0, 50% 50%);
-  transform-origin: top center;
-  transition: transform 1.2s cubic-bezier(0.68, -0.55, 0.265, 1.55);
-  z-index: 3;
-}
-
-/* ANIMACION APERTURA SOBRE */
-.envelope-container.open .envelope { animation: chest 1s ease-in-out forwards; }
-.envelope-container.open .flap { transform: rotateX(180deg); }
-@keyframes chest {
-  0% { transform: scale(1) rotate(0deg); }
-  30% { transform: scale(1.1) rotate(3deg); }
-  50% { transform: scale(1.15) rotate(-3deg); }
-  70% { transform: scale(1.1) rotate(2deg); }
-  100% { transform: scale(1) rotate(0deg); }
-}
+.envelope-container { width:320px; height:220px; position:relative; cursor:pointer; margin-bottom:50px; z-index:10; transition:all 0.3s, opacity 1s 1.2s; }
+.envelope-container:hover { transform:scale(1.03); }
+.envelope-container.open { pointer-events:none; opacity:0; }
+.envelope { width:100%; height:100%; background:linear-gradient(135deg,#ff6f91 0%,#ff8fab 100%); border-radius:10px; position:relative; overflow:hidden; box-shadow:0 15px 40px rgba(0,0,0,0.3); animation:idle 3s ease-in-out infinite; }
+@keyframes idle {0%,100%{transform:translateY(0);}50%{transform:translateY(-5px);}}
+.flap { position:absolute; top:0; left:0; width:100%; height:100%; background:linear-gradient(180deg,#ff8fab 0%,#ffa3bd 100%); clip-path: polygon(0 0,100% 0,50% 50%); transform-origin:top center; transition:transform 1.2s cubic-bezier(0.68,-0.55,0.265,1.55); z-index:3; }
+.envelope-container.open .envelope { animation:chest 1s ease-in-out forwards; }
+.envelope-container.open .flap { transform:rotateX(180deg); }
+@keyframes chest {0%{transform:scale(1) rotate(0deg);}30%{transform:scale(1.1) rotate(3deg);}50%{transform:scale(1.15) rotate(-3deg);}70%{transform:scale(1.1) rotate(2deg);}100%{transform:scale(1) rotate(0deg);}}
 
 /* CARTA */
 .letter {
   background: url('fondo-carta.png') no-repeat center center;
   background-size: cover;
-  border-radius: 20px;
-  max-width: 550px;
-  width: 90%;
-  min-height: 600px;
-  margin: 0 auto;
-  padding: 35px 30px;
-  box-shadow: 0 30px 60px rgba(0,0,0,0.8);
-  transform: translateY(100px);
-  opacity: 0;
-  transition: all 1.8s cubic-bezier(0.34, 1.56, 0.64, 1);
-  position: relative;
-  z-index: 10;
-  border: 3px solid rgba(255, 111, 145, 0.5);
-  display: flex;
-  flex-direction: column;
-  overflow: hidden;
+  border-radius:20px;
+  max-width:550px; width:90%; min-height:600px;
+  margin:0 auto; padding:40px 30px 30px 30px;
+  box-shadow:0 30px 60px rgba(0,0,0,0.8);
+  transform:translateY(100px); opacity:0;
+  transition:all 1.8s cubic-bezier(0.34,1.56,0.64,1);
+  position:relative; z-index:10; border:3px solid rgba(255,111,145,0.5);
+  display:flex; flex-direction:column; overflow:hidden;
 }
 .letter::before {
-  content:"";
-  position:absolute;
-  inset:0;
-  background: rgba(20,20,20,0.4);
-  border-radius:20px;
-  z-index:1;
+  content:""; position:absolute; inset:0; background: rgba(0,0,0,0.25); border-radius:20px; z-index:1;
 }
-.letter.show {
-  transform: translateY(0);
-  opacity: 1;
-}
-.letter h1 {
-  color: #ff99b8;
-  margin-bottom: 18px;
-  text-align: center;
-  font-size: 28px;
-  text-shadow: 0 3px 15px rgba(255, 111, 145, 0.6);
-  font-weight: 600;
-  position: relative;
-  z-index: 2;
-}
-.letter img {
-  width: 100%;
-  max-width: 300px;
-  display: block;
-  margin: 0 auto 18px auto;
-  border-radius: 12px;
-  box-shadow: 0 8px 25px rgba(0,0,0,0.5);
-  border: 3px solid rgba(255, 139, 171, 0.5);
-  position: relative;
-  z-index: 2;
-}
+.letter.show { transform:translateY(0); opacity:1; }
 
-/* MENSAJE TYPEWRITER */
+/* CONTENIDO INTERNO */
+.letter h1 { color:#ff99b8; margin-bottom:18px; text-align:center; font-size:28px; text-shadow:0 3px 15px rgba(255,111,145,0.6); font-weight:600; position:relative; z-index:2; }
+.letter img { width:100%; max-width:300px; display:block; margin:0 auto 18px auto; border-radius:12px; box-shadow:0 8px 25px rgba(0,0,0,0.5); border:3px solid rgba(255,139,171,0.5); position:relative; z-index:2; }
+
+/* MENSAJE */
 #message {
-  color: #ffd6e0;
-  font-size: 17px;
-  line-height: 1.7;
-  text-align: center;
-  min-height: 220px;
-  margin: 25px 0 35px 0;
-  text-shadow: 0 2px 5px rgba(0,0,0,0.8);
-  font-weight: 400;
-  word-wrap: break-word;
-  overflow-wrap: break-word;
-  width: 100%;
-  position: relative;
-  z-index: 2;
+  color:#ffd6e0; font-size:17px; line-height:1.7; text-align:center; min-height:220px; margin:25px 0 35px 0;
+  text-shadow:0 2px 5px rgba(0,0,0,0.8); font-weight:400; word-wrap:break-word; overflow-wrap:break-word; width:100%; position:relative; z-index:2;
 }
 
-/* RAMO DE FLORES */
+/* RAMO */
 .bouquet-container {
-  width: 130px;
-  max-height: 200px;
-  margin: 15px auto 0 auto;
-  position: relative;
-  opacity: 0;
-  animation: fadeInBouquet 1s ease forwards 2s;
-  z-index: 2;
-  filter: drop-shadow(0 6px 15px rgba(0,0,0,0.5));
+  width:130px; max-height:200px; margin:15px auto 0 auto; position:relative; opacity:0;
+  animation:fadeInBouquet 1s ease forwards 2s; z-index:2; filter:drop-shadow(0 6px 15px rgba(0,0,0,0.5));
 }
-@keyframes fadeInBouquet {
-  0% { opacity:0; transform:translateY(20px) scale(0.9); }
-  100% { opacity:1; transform:translateY(0) scale(1); }
-}
-.bouquet-wrapper { position: relative; width: 100%; animation: breathe 3.5s ease-in-out infinite 3s; }
-@keyframes breathe { 0%,100%{transform:scale(1);}50%{transform:scale(1.05);} }
+@keyframes fadeInBouquet {0%{opacity:0; transform:translateY(20px) scale(0.9);}100%{opacity:1; transform:translateY(0) scale(1);}}
+.bouquet-wrapper { position:relative; width:100%; animation:breathe 3.5s ease-in-out infinite 3s; }
+@keyframes breathe {0%,100%{transform:scale(1);}50%{transform:scale(1.05);}}
 
-/* CORAZONES FLOTANTES */
-.hearts {
-  position: absolute;
-  top: -35px;
-  left: 0;
-  width: 100%;
-  height: 40px;
-  pointer-events: none;
-  z-index: 2;
-  overflow: hidden;
-}
-.heart {
-  position: absolute;
-  font-size: 18px;
-  animation: floatHeart 3.5s ease-in-out infinite;
-  opacity: 0;
-  filter: drop-shadow(0 2px 6px rgba(0,0,0,0.4));
-}
-.heart:nth-child(1){ left:10%; animation-delay:3.5s; }
-.heart:nth-child(2){ left:50%; animation-delay:4.2s; }
-.heart:nth-child(3){ left:85%; animation-delay:4.9s; }
-@keyframes floatHeart {
-  0% { transform: translateY(0) scale(0); opacity:0; }
-  20% { transform: translateY(-18px) scale(1); opacity:1; }
-  80% { opacity:0.9; }
-  100% { transform: translateY(-45px) scale(1.3); opacity:0; }
-}
+/* CORAZONES */
+.hearts { position:absolute; top:-35px; left:0; width:100%; height:40px; pointer-events:none; z-index:2; overflow:hidden; }
+.heart { position:absolute; font-size:18px; animation:floatHeart 3.5s ease-in-out infinite; opacity:0; filter:drop-shadow(0 2px 6px rgba(0,0,0,0.4)); }
+.heart:nth-child(1){ left:10%; animation-delay:3.5s; } .heart:nth-child(2){ left:50%; animation-delay:4.2s; } .heart:nth-child(3){ left:85%; animation-delay:4.9s; }
+@keyframes floatHeart {0%{transform:translateY(0) scale(0);opacity:0;}20%{transform:translateY(-18px) scale(1);opacity:1;}80%{opacity:0.9;}100%{transform:translateY(-45px) scale(1.3);opacity:0;}}
 
 /* RAMO PARTES */
 .bouquet-aspect-ratio{position:relative;width:100%;padding-bottom:120%;}
-.bouquet-part{position:absolute;top:0;left:0;width:100%;height:100%;background-image:url('ramo-flores.png');background-size:contain;background-position:center;background-repeat:no-repeat;}
-.bouquet-flowers { clip-path: polygon(0 0,100% 0,100% 50%,0 50%); animation: revealFlowers 1s ease-out forwards; animation-delay:2.2s; opacity:0; }
-@keyframes revealFlowers { 0%{opacity:0; transform:translateY(-20px) scale(0.8);} 100%{opacity:1; transform:translateY(0) scale(1);} }
-.bouquet-stems { clip-path: polygon(0 50%,100% 50%,100% 85%,0 85%); animation: revealStems 0.8s ease-out forwards; animation-delay:2.8s; opacity:0; transform-origin:center top; }
-@keyframes revealStems { 0%{opacity:0; transform:scaleY(0);} 100%{opacity:1; transform:scaleY(1);} }
-.bouquet-bow { clip-path: polygon(0 85%,100% 85%,100% 100%,0 100%); animation: revealBow 0.6s cubic-bezier(0.68,-0.55,0.265,1.55) forwards; animation-delay:3.3s; opacity:0; }
-@keyframes revealBow { 0%{opacity:0; transform:scale(0) rotate(-180deg);} 70%{transform:scale(1.15) rotate(10deg);} 100%{opacity:1; transform:scale(1) rotate(0deg);} }
+.bouquet-part{position:absolute;top:0;left:0;width:100%;height:100%;background-size:contain;background-position:center;background-repeat:no-repeat;}
+.bouquet-flowers{background-image:url('ramo-flores.png'); clip-path:polygon(0 0,100% 0,100% 50%,0 50%); animation:revealFlowers 1s ease-out forwards; animation-delay:2.2s; opacity:0;}
+@keyframes revealFlowers {0%{opacity:0; transform:translateY(-20px) scale(0.8);}100%{opacity:1; transform:translateY(0) scale(1);}}
+.bouquet-stems{background-image:url('ramo-stems.png'); clip-path:polygon(0 50%,100% 50%,100% 85%,0 85%); animation:revealStems 0.8s ease-out forwards; animation-delay:2.8s; opacity:0; transform-origin:center top;}
+@keyframes revealStems {0%{opacity:0; transform:scaleY(0);}100%{opacity:1; transform:scaleY(1);}}
+.bouquet-bow{background-image:url('ramo-bow.png'); clip-path:polygon(0 85%,100% 85%,100% 100%,0 100%); animation:revealBow 0.6s cubic-bezier(0.68,-0.55,0.265,1.55) forwards; animation-delay:3.3s; opacity:0;}
+@keyframes revealBow {0%{opacity:0; transform:scale(0) rotate(-180deg);}70%{transform:scale(1.15) rotate(10deg);}100%{opacity:1; transform:scale(1) rotate(0deg);}}
 
 /* RESPONSIVE */
 @media(max-width:600px){
@@ -235,18 +89,16 @@ body {
   .letter{padding:30px 22px 25px 22px; max-width:95%;}
   .letter h1{font-size:24px; margin-bottom:15px;}
   .letter img{max-width:260px;margin-bottom:15px;}
-  #message{font-size:15px;min-height:200px;line-height:1.6;margin:20px 0 30px 0;}
+  #message{font-size:15px; min-height:200px; line-height:1.6; margin:20px 0 30px 0;}
   .bouquet-container{width:110px;}
   .heart{font-size:16px;}
 }
 
 /* FONDO AL ABRIR */
 body.opened {
-  background-color: #1a1a1a;
-  background-image: url('fondo-flores.jpg');
-  background-size: contain;
-  background-repeat: no-repeat;
-  background-position: center top;
+  background-color:#1a1a1a;
+  background-image:url('fondo-flores.jpg');
+  background-size:contain; background-repeat:no-repeat; background-position:center top;
 }
 </style>
 </head>
@@ -282,23 +134,23 @@ body.opened {
 
 <script>
 const message = "Esta pagina es solo para ti. Gracias por estar conmigo. Te quiero mas de lo que estas palabras pueden decir.";
-let charIndex = 0;
+let charIndex=0;
 function typeWriter() {
-  if (charIndex < message.length) {
-    const char = message.charAt(charIndex);
-    document.getElementById("message").innerHTML += char === "\n" ? "<br>" : char;
+  if(charIndex<message.length){
+    const char=message.charAt(charIndex);
+    document.getElementById("message").innerHTML+=char==="\n"?"<br>":char;
     charIndex++;
-    setTimeout(typeWriter, 60);
+    setTimeout(typeWriter,60);
   }
 }
 
-document.getElementById("envelopeContainer").onclick = function() {
+document.getElementById("envelopeContainer").onclick=function(){
   if(this.classList.contains("open")) return;
   this.classList.add("open");
-  this.style.cursor = "default";
+  this.style.cursor="default";
   document.body.classList.add("opened");
   document.getElementById("hint").classList.add("hide");
-  setTimeout(()=>{ this.style.display = "none"; },1500);
+  setTimeout(()=>{this.style.display="none";},1500);
   setTimeout(()=>{
     document.getElementById("letter").classList.add("show");
     setTimeout(typeWriter,800);
