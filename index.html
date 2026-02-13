@@ -12,21 +12,23 @@
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
+/* Antes de abrir la carta */
 body {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  background-color: #fef6f6; /* Fondo suave antes de abrir la carta */
-  transition: background 1s ease; /* transición suave al abrir */
+  background-color: #ff6f91; /* rosa como el sobre */
+  transition: all 1s ease;
 }
 
+/* Después de abrir la carta */
 body.opened {
-  background-color: #1a1a1a;
+  background-color: #1a1a1a; /* oscuro detrás de la carta */
   background-image: url('fondo-flores.jpg');
-  background-size: cover; /* cubre toda la pantalla */
-  background-position: center; /* centra la imagen */
-  background-repeat: no-repeat; /* evita que se repita */
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
 }
 
 
