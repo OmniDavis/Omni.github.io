@@ -10,175 +10,146 @@
 body {
   min-height: 100vh;
   background: #f8b4c6;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  padding: 20px;
-  overflow-x: hidden;
-  transition: background 1.5s ease;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  padding:20px;
+  overflow:hidden;
+  transition: background 1s ease;
 }
 
-/* FONDO AL ABRIR */
+/* FONDO DE FLORES */
 body.opened {
-  background-color: #111;
-  background-image: url('fondo-flores.jpg');
-  background-size: contain;
-  background-repeat: no-repeat;
-  background-position: center top;
+  background: url('fondo-flores.jpg') center center no-repeat;
+  background-size: cover;
 }
 
 /* TEXTO HINT */
 .hint {
-  color: white;
-  font-size: 20px;
-  margin-bottom: 30px;
-  text-shadow: 0 2px 10px rgba(0,0,0,0.3);
+  color:white;
+  font-size:20px;
+  margin-bottom:30px;
+  text-shadow:0 2px 10px rgba(0,0,0,0.3);
   animation: float 2s infinite;
   transition: all 0.8s;
 }
-
 .hint.hide {
-  opacity: 0;
-  transform: translateY(-30px);
+  opacity:0;
+  transform:translateY(-30px);
 }
-
 @keyframes float {
-  0%,100% { transform: translateY(0); }
-  50% { transform: translateY(-8px); }
+  0%,100% { transform: translateY(0);}
+  50% { transform: translateY(-8px);}
 }
 
 /* SOBRE */
 .envelope-container {
-  width: 320px;
-  height: 220px;
-  position: relative;
-  cursor: pointer;
-  margin-bottom: 50px;
-  z-index: 2;
+  width:320px;
+  height:220px;
+  position:relative;
+  cursor:pointer;
+  margin-bottom:50px;
+  z-index:2;
 }
-
 .envelope {
-  width: 100%;
-  height: 100%;
-  background: #ff6f91;
-  border-radius: 8px;
-  position: relative;
-  overflow: hidden;
-  box-shadow: 0 15px 35px rgba(0,0,0,0.3);
+  width:100%; height:100%;
+  background:#ff6f91;
+  border-radius:8px;
+  position:relative;
+  overflow:hidden;
+  box-shadow:0 15px 35px rgba(0,0,0,0.3);
   transition: transform 0.3s;
   animation: idle 3s infinite ease-in-out;
 }
-
-.envelope:hover { transform: scale(1.02); }
-
-@keyframes idle { 0%,100% { transform: scale(1); } 50% { transform: scale(1.05); } }
-
+.envelope:hover { transform: scale(1.02);}
+@keyframes idle { 0%,100%{transform:scale(1);} 50%{transform:scale(1.05);} }
 .flap {
-  position: absolute;
-  top:0; left:0;
-  width:100%; height:100%;
-  background: #ff8fab;
-  clip-path: polygon(0 0, 100% 0, 50% 50%);
+  position:absolute; top:0; left:0; width:100%; height:100%;
+  background:#ff8fab;
+  clip-path: polygon(0 0,100% 0,50% 50%);
   transform-origin: top center;
   transition: transform 1.2s ease;
   z-index:3;
 }
-
-.envelope-container.open .envelope {
-  animation: chest 1s forwards;
-}
-
-.envelope-container.open .flap { transform: rotateX(180deg); }
-
+.envelope-container.open .envelope { animation: chest 1s forwards;}
+.envelope-container.open .flap { transform: rotateX(180deg);}
 @keyframes chest {
-  0% { transform: scale(1); }
-  30% { transform: scale(1.1) rotate(2deg); }
-  50% { transform: scale(1.15) rotate(-2deg); }
-  70% { transform: scale(1.1) rotate(2deg); }
-  100% { transform: scale(1); }
+  0% { transform: scale(1);}
+  30%{ transform: scale(1.1) rotate(2deg);}
+  50%{ transform: scale(1.15) rotate(-2deg);}
+  70%{ transform: scale(1.1) rotate(2deg);}
+  100%{ transform: scale(1);}
 }
 
-/* CARTA */
+/* CARTA TRANSPARENTE */
 .letter {
-  background-color: #fefefe;
+  background: rgba(255,255,255,0); /* transparente */
   padding: 40px 30px;
   border-radius: 15px;
   max-width: 550px;
   width: 90%;
-  margin: 0 auto;
-  box-shadow: 0 25px 50px rgba(0,0,0,0.4);
-  transform: translateY(100px);
-  opacity: 0;
-  transition: all 1s ease;
-  position: relative;
-  z-index: 2;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
-.letter.show {
-  transform: translateY(0);
-  opacity: 1;
-}
-
-.letter.hide {
-  opacity: 0;
+  margin:0 auto;
+  box-shadow:0 25px 50px rgba(0,0,0,0.2);
   transform: scale(0.8);
+  opacity:0;
+  transition: all 1s ease;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  text-align:center;
+  z-index:1;
+}
+.letter.show {
+  transform: scale(1);
+  opacity:1;
 }
 
-/* TEXTO Y IMAGEN */
+/* TEXTO E IMAGEN */
 .letter h1 {
-  color: #d6336c;
-  margin-bottom: 25px;
-  text-align: center;
-  font-size: 28px;
+  color:#d6336c;
+  font-size:28px;
+  margin-bottom:20px;
 }
-
 .letter img {
-  width: 100%;
-  max-width: 400px;
-  display: block;
-  margin: 20px auto;
-  border-radius: 12px;
-  box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+  max-width:350px;
+  width:100%;
+  border-radius:12px;
+  box-shadow:0 8px 20px rgba(0,0,0,0.2);
+  margin-bottom:20px;
 }
-
 #message {
-  color: #333;
-  font-size: 18px;
-  line-height: 1.8;
-  text-align: center;
-  min-height: 120px;
-  margin: 25px 0;
+  color:#fff;
+  font-size:18px;
+  line-height:1.7;
+  min-height:120px;
+  margin-bottom:20px;
 }
-
-body.opened #message { color: #ffd6e0; }
 
 /* RAMO REAL */
 .bouquet-container {
-  width: 130px;
-  margin-top: 20px;
-  opacity: 0;
-  transition: opacity 1s ease;
+  width:180px;
+  margin-top:10px;
+  opacity:0;
+  transform: scale(0.5);
+  transition: all 1s ease;
 }
-
-.bouquet-container.show { opacity:1; }
-
-.bouquet-part {
-  width: 100%;
-  height: auto;
-  display: block;
+.bouquet-container.show {
+  opacity:1;
+  transform: scale(1);
+}
+.bouquet-container img {
+  width:100%;
+  display:block;
+  margin:0 auto;
 }
 
 /* RESPONSIVE */
-@media(max-width:600px) {
-  .envelope-container { width:280px; height:190px; }
+@media(max-width:600px){
   .letter { padding:30px 20px; }
-  .letter h1 { font-size:24px; }
-  #message { font-size:16px; }
-  .bouquet-container { width:110px; }
+  .letter h1 { font-size:24px;}
+  #message { font-size:16px;}
+  .bouquet-container { width:140px;}
 }
 </style>
 </head>
@@ -195,10 +166,9 @@ body.opened #message { color: #ffd6e0; }
   <img src="foto.jpg" alt="Para ti">
   <div id="message"></div>
 
+  <!-- RAMO REAL -->
   <div class="bouquet-container" id="bouquetContainer">
-    <img class="bouquet-part" src="ramo-flores.png" alt="Flores">
-    <img class="bouquet-part" src="ramo-stems.png" alt="Tallos">
-    <img class="bouquet-part" src="ramo-bow.png" alt="Lazo">
+    <img src="ramo-flores.png" alt="Ramo">
   </div>
 </div>
 
@@ -207,37 +177,30 @@ const message = `Esta pagina es solo para ti.
 Gracias por estar conmigo.
 Te quiero mas de lo que estas palabras pueden decir.`;
 
-let charIndex = 0;
-function typeWriter() {
-  if(charIndex < message.length){
+let charIndex=0;
+function typeWriter(){
+  if(charIndex<message.length){
     const char = message.charAt(charIndex);
-    document.getElementById("message").innerHTML += char === "\n" ? "<br>" : char;
+    document.getElementById("message").innerHTML += char==="\n"?"<br>":char;
     charIndex++;
-    setTimeout(typeWriter, 60);
+    setTimeout(typeWriter,50);
   }
 }
 
-document.getElementById("envelopeContainer").onclick = function() {
-  // Abrir sobre
+document.getElementById("envelopeContainer").onclick = function(){
   this.classList.add("open");
-
-  // Cambiar fondo
+  document.getElementById("hint").classList.add("hide");
   document.body.classList.add("opened");
 
-  // Ocultar hint
-  document.getElementById("hint").classList.add("hide");
-
-  // Desaparecer carta antes de mostrar ramo
+  // Mostrar carta y ramo desde el centro
   const letter = document.getElementById("letter");
-  letter.classList.add("hide");
+  const bouquet = document.getElementById("bouquetContainer");
 
-  // Mostrar carta y ramo después
   setTimeout(()=>{
-    letter.classList.remove("hide");
     letter.classList.add("show");
-    document.getElementById("bouquetContainer").classList.add("show");
-    setTimeout(typeWriter, 500);
-  },1200);
+    bouquet.classList.add("show");
+    setTimeout(typeWriter,500);
+  },1000);
 };
 </script>
 
