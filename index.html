@@ -18,15 +18,16 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
+  justify-content: flex-start;
   padding: 20px;
+  overflow-x: hidden;
 }
 
 /* TEXTO HINT */
 .hint {
   color: white;
   font-size: 20px;
-  margin-bottom: 30px;
+  margin-bottom: 20px;
   text-shadow: 0 2px 10px rgba(0,0,0,0.3);
   animation: float 2s infinite;
   transition: all 0.8s;
@@ -47,7 +48,7 @@ body {
   height: 220px;
   position: relative;
   cursor: pointer;
-  margin-bottom: 50px;
+  margin-bottom: 40px;
   z-index: 2;
 }
 .envelope {
@@ -84,13 +85,13 @@ body {
 .letter {
   position: relative;
   background: transparent; /* carta transparente */
-  padding: 40px 30px;
+  padding: 25px 20px;
   border-radius: 15px;
-  max-width: 550px;
+  max-width: 500px;
   width: 90%;
   margin: 0 auto;
   box-shadow: 0 25px 50px rgba(0,0,0,0.4);
-  transform: scale(0.5);
+  transform: scale(0.6) translateY(0);
   opacity: 0;
   transition: all 1.2s ease;
   overflow: hidden;
@@ -120,42 +121,42 @@ body {
 }
 
 .letter.show {
-  transform: scale(1);
+  transform: scale(1) translateY(-50px); /* desplaza carta hacia arriba */
   opacity: 1;
 }
 
 /* TEXTO */
 .letter h1 {
   color: #d6336c;
-  margin-bottom: 25px;
+  margin-bottom: 15px;
   text-align: center;
-  font-size: 28px;
+  font-size: 24px;
 }
 
 /* FOTO */
 .letter img {
-  width: 100%;
-  max-width: 400px;
+  width: 90%;
+  max-width: 300px;
   display: block;
-  margin: 20px auto;
-  border-radius: 12px;
-  box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+  margin: 15px auto;
+  border-radius: 10px;
+  box-shadow: 0 6px 15px rgba(0,0,0,0.2);
 }
 
 /* MENSAJE TYPEWRITER */
 #message {
   color: #333;
-  font-size: 18px;
-  line-height: 1.8;
+  font-size: 16px;
+  line-height: 1.6;
   text-align: center;
-  min-height: 120px;
-  margin: 25px 0;
+  min-height: 100px;
+  margin: 15px 0;
 }
 
 /* RAMO DE FLORES PNG */
 .bouquet-container {
-  width: 200px;
-  margin: 30px auto 0;
+  width: 150px;
+  margin: 20px auto 0;
   opacity: 0;
   transform: scale(0);
   transition: all 1s ease;
@@ -167,15 +168,17 @@ body {
 .bouquet-container img {
   width: 100%;
   display: block;
+  border-radius: 10px;
 }
 
 /* RESPONSIVE */
 @media (max-width: 600px) {
   .envelope-container { width: 280px; height: 190px; }
-  .letter { padding: 30px 20px; }
-  .letter h1 { font-size: 24px; }
-  #message { font-size: 16px; }
-  .bouquet-container { width: 160px; }
+  .letter { padding: 20px 15px; max-width: 90%; }
+  .letter h1 { font-size: 20px; }
+  #message { font-size: 14px; }
+  .letter img { max-width: 250px; }
+  .bouquet-container { width: 120px; }
 }
 </style>
 </head>
@@ -205,7 +208,6 @@ Gracias por estar conmigo.
 Te quiero mas de lo que estas palabras pueden decir.`;
 
 let charIndex = 0;
-
 function typeWriter() {
   if(charIndex < message.length) {
     const char = message.charAt(charIndex);
@@ -216,19 +218,15 @@ function typeWriter() {
 }
 
 document.getElementById("envelopeContainer").onclick = function() {
-  // Abrir sobre
   this.classList.add("open");
   this.style.opacity = "0";
-  
-  // Ocultar hint
   document.getElementById("hint").classList.add("hide");
-  
-  // Mostrar carta después de la animación del sobre
+
   setTimeout(() => {
-    document.getElementById("letter").classList.add("show");
+    const letter = document.getElementById("letter");
+    letter.classList.add("show");
     setTimeout(typeWriter, 500);
-    
-    // Mostrar ramo animado desde el centro
+
     const ramo = document.getElementById("bouquetContainer");
     setTimeout(()=>{ ramo.classList.add("show"); }, 800);
   }, 1200);
