@@ -45,11 +45,11 @@ body {
 .letter {
   position: relative;
   background: transparent;
-  padding: 20px;
+  padding: 30px;
   border-radius: 15px;
-  max-width: 400px;
+  max-width: 500px; /* aumentado de 400px */
   width: 90%;
-  aspect-ratio: 3/4; /* proporción vertical para que coincida con la imagen */
+  aspect-ratio: 3/4;
   margin: 0 auto;
   box-shadow: 0 20px 40px rgba(0,0,0,0.3);
   transform: scale(0.55) translateY(0);
@@ -68,7 +68,7 @@ body {
   position:absolute;
   inset:0;
   background: url('fondo-flores.jpg') no-repeat center center;
-  background-size: 100% 100%; /* estira la imagen para llenar exactamente */
+  background-size: 100% 100%;
   border-radius: 15px;
   z-index: 0;
 }
@@ -80,25 +80,25 @@ body {
 .bouquet-container { position: relative; z-index: 1; }
 
 .letter.show {
-  transform: scale(1) translateY(-80px);
+  transform: scale(1) translateY(-60px);
   opacity: 1;
 }
 
 /* TEXTO */
 .letter h1 {
   color: white;
-  margin-bottom: 12px;
+  margin-bottom: 15px;
   text-align: center;
-  font-size: 20px;
+  font-size: 24px; /* aumentado de 20px */
   text-shadow: 0 2px 4px rgba(0,0,0,0.5);
 }
 
 /* FOTO */
 .letter img {
   width: 70%;
-  max-width: 220px;
+  max-width: 280px; /* aumentado de 220px */
   display: block;
-  margin: 12px auto;
+  margin: 15px auto;
   border-radius: 10px;
   box-shadow: 0 6px 15px rgba(0,0,0,0.2);
 }
@@ -106,17 +106,17 @@ body {
 /* MENSAJE TYPEWRITER */
 #message {
   color: white;
-  font-size: 14px;
+  font-size: 16px; /* aumentado de 14px */
   line-height: 1.5;
   text-align: center;
-  min-height: 80px;
-  margin: 12px 0;
+  min-height: 90px;
+  margin: 15px 0;
   text-shadow: 0 2px 4px rgba(0,0,0,0.5);
 }
 
 /* RAMO DE FLORES PNG */
 .bouquet-container {
-  width: 100px;
+  width: 120px; /* aumentado de 100px */
   margin: 15px auto 0;
   opacity: 0;
   transform: scale(0);
@@ -135,11 +135,11 @@ body {
 /* RESPONSIVE */
 @media (max-width: 600px) {
   .envelope-container { width: 280px; height: 190px; }
-  .letter { padding: 15px; max-width: 90%; }
-  .letter h1 { font-size: 18px; }
-  #message { font-size: 13px; }
-  .letter img { max-width: 180px; }
-  .bouquet-container { width: 85px; }
+  .letter { padding: 20px; max-width: 90%; }
+  .letter h1 { font-size: 20px; }
+  #message { font-size: 14px; }
+  .letter img { max-width: 220px; }
+  .bouquet-container { width: 100px; }
 }
 </style>
 </head>
