@@ -83,27 +83,40 @@ body {
 }
 
 /* TEXTO */
-/* Contenido de la carta más pequeño */
 .letter h1 {
-  font-size: 16px; /* antes 18px */
-  margin-bottom: 8px; /* antes 10px */
+  color: #d6336c;
+  margin-bottom: 10px;
+  text-align: center;
+  font-size: 17px; /* reducido de 20px */
 }
 
+/* FOTO */
 .letter img {
-  max-width: 150px; /* antes 200px */
-  margin: 5px auto; /* antes 10px */
+  width: 80%;
+  max-width: 250px;
+  display: block;
+  margin: 12px auto;
+  border-radius: 10px;
+  box-shadow: 0 6px 15px rgba(0,0,0,0.2);
 }
 
+/* MENSAJE TYPEWRITER */
 #message {
-  font-size: 12px; /* antes 13px */
-  line-height: 1.3; /* antes 1.4 */
-  min-height: 50px; /* antes 60px */
-  margin: 5px 0; /* antes 10px */
+  color: #333;
+  font-size: 12px; /* reducido de 14px */
+  line-height: 1.5;
+  text-align: center;
+  min-height: 80px;
+  margin: 10px 0;
 }
 
+/* RAMO DE FLORES PNG */
 .bouquet-container {
-  width: 80px; /* antes 100px */
-  margin: 5px auto 0; /* antes 10px */
+  width: 100px; /* reducido de 120px */
+  margin: 12px auto 0;
+  opacity: 0;
+  transform: scale(0);
+  transition: all 1s ease;
 }
 .bouquet-container.show {
   opacity: 1;
@@ -111,17 +124,18 @@ body {
 }
 .bouquet-container img {
   width: 100%;
-  border-radius: 8px; /* antes 10px */
+  display: block;
+  border-radius: 10px;
 }
 
 /* RESPONSIVE */
 @media (max-width: 600px) {
   .envelope-container { width: 280px; height: 190px; }
   .letter { padding: 15px; max-width: 90%; }
-  .letter h1 { font-size: 18px; }
-  #message { font-size: 13px; }
+  .letter h1 { font-size: 16px; }
+  #message { font-size: 11px; }
   .letter img { max-width: 200px; }
-  .bouquet-container { width: 100px; }
+  .bouquet-container { width: 85px; }
 }
 </style>
 </head>
