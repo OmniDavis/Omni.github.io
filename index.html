@@ -1,184 +1,82 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Para ti 💌</title>
+<!-- SOLO EL BODY Y CSS AJUSTADOS -->
 <style>
-/* RESET */
-* { margin:0; padding:0; box-sizing:border-box; font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
-
-/* BODY */
 body {
   min-height:100vh;
   background:#f8b4c6;
   display:flex;
   flex-direction:column;
   align-items:center;
-  justify-content:center;
+  justify-content:flex-start;
   padding:20px;
   overflow-x:hidden;
-  transition: background 1.5s ease;
+  transition: background 1s;
 }
 
 body.opened {
-  background:#f8b4c6; /* se mantiene rosado */
+  background: #f8b4c6 url('fondo-flores.jpg') no-repeat center top;
+  background-size: contain;
 }
 
-/* HINT */
-.hint {
-  color:white;
-  font-size:20px;
-  margin-bottom:30px;
-  text-shadow:0 2px 10px rgba(0,0,0,0.3);
-  animation: float 2s infinite;
-  transition: all 0.8s;
-}
+.hint { color:white; font-size:20px; margin-bottom:30px; text-shadow:0 2px 10px rgba(0,0,0,0.3); animation:float 2s infinite; transition:all 0.8s; }
+.hint.hide { opacity:0; transform:translateY(-30px); }
 
-.hint.hide {
-  opacity:0;
-  transform: translateY(-30px);
-}
-
-@keyframes float { 0%,100%{transform:translateY(0);}50%{transform:translateY(-8px);} }
-
-/* SOBRE */
-.envelope-container {
-  width:320px;
-  height:220px;
-  position:relative;
-  cursor:pointer;
-  margin-bottom:50px;
-  z-index:2;
-}
-
-.envelope {
-  width:100%;
-  height:100%;
-  background:#ff6f91;
-  border-radius:8px;
-  position:relative;
-  overflow:hidden;
-  box-shadow:0 15px 35px rgba(0,0,0,0.3);
-  transition: transform 0.3s;
-  animation: idle 3s infinite ease-in-out;
-}
-
-.envelope:hover { transform: scale(1.02); }
-
-@keyframes idle { 0%,100%{transform:scale(1);}50%{transform:scale(1.05);} }
-
-.flap {
-  position:absolute;
-  top:0; left:0; width:100%; height:100%;
-  background:#ff8fab;
-  clip-path: polygon(0 0, 100% 0, 50% 50%);
-  transform-origin: top center;
-  transition: transform 1.2s ease;
-  z-index:3;
-}
-
-.envelope-container.open .envelope { animation: chest 1s forwards; }
+.envelope-container { width:320px; height:220px; position:relative; cursor:pointer; margin-bottom:50px; z-index:2; }
+.envelope { width:100%; height:100%; background:#ff6f91; border-radius:8px; position:relative; overflow:hidden; box-shadow:0 15px 35px rgba(0,0,0,0.3); animation:idle 3s infinite ease-in-out; transition:transform 0.3s; }
+.envelope:hover { transform:scale(1.02); }
+.flap { position:absolute; top:0; left:0; width:100%; height:100%; background:#ff8fab; clip-path:polygon(0 0,100% 0,50% 50%); transform-origin:top center; transition: transform 1.2s ease; z-index:3; }
 .envelope-container.open .flap { transform: rotateX(180deg); }
+.envelope-container.open .envelope { animation: chest 1s forwards; }
 
-@keyframes chest {
-  0% { transform: scale(1); }
-  30% { transform: scale(1.1) rotate(2deg); }
-  50% { transform: scale(1.15) rotate(-2deg); }
-  70% { transform: scale(1.1) rotate(2deg); }
-  100% { transform: scale(1); }
-}
+@keyframes idle {0%,100%{transform:scale(1);}50%{transform:scale(1.05);}}
+@keyframes chest {0%{transform:scale(1);}50%{transform:scale(1.15) rotate(-2deg);}100%{transform:scale(1);}}
 
-/* CARTA */
 .letter {
-  position: relative;
-  background: transparent; /* transparente */
-  padding: 20px 15px 25px 15px;
-  border-radius: 15px;
+  background: transparent; /* transparente para que se vea el contorno de flores */
   max-width: 420px;
   width: 85%;
-  margin: 0 auto;
-  box-shadow: 0 15px 35px rgba(0,0,0,0.3);
-  transform: scale(0.5) translateY(0);
-  opacity: 0;
-  transition: all 1.2s ease;
-  overflow: hidden;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+  border-radius:15px;
+  padding:15px 10px 20px 10px;
+  margin:0 auto;
+  box-shadow:0 15px 35px rgba(0,0,0,0.2);
+  opacity:1;
+  transition: all 1s ease;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
 }
 
-/* Carta final */
-.letter.show {
-  transform: scale(1) translateY(-240px); /* sube al lugar del sobre */
-  opacity: 1;
-}
+.letter.hide { opacity:0; transform:translateY(-200px); } /* desaparece al abrir */
 
-/* CONTENIDO */
-.letter h1 {
-  color:#d6336c;
-  font-size:22px;
-  text-align:center;
-  margin-bottom:15px;
-}
+.letter h1 { color:#d6336c; font-size:20px; text-align:center; margin-bottom:12px; }
+.letter img { width:75%; max-width:260px; border-radius:10px; margin-bottom:10px; }
 
-.letter img {
-  width: 80%;
-  max-width: 280px;
-  border-radius:10px;
-  box-shadow:0 5px 15px rgba(0,0,0,0.2);
-  margin-bottom:15px;
-}
+#message { font-size:15px; line-height:1.5; text-align:center; min-height:70px; margin-bottom:15px; }
 
-/* MENSAJE */
-#message {
-  font-size:16px;
-  color:#333;
-  line-height:1.6;
-  text-align:center;
-  min-height:80px;
-}
-
-/* RAMO DE FLORES */
-.letter .bouquet-container {
-  width: 180px;
-  height: auto;
-  margin: 20px auto 0 auto;
-  background: url('ramo-flores.png') no-repeat center center;
-  background-size: contain;
-  opacity:0;
+.bouquet-container {
+  width:180px;
+  height:auto;
+  background:url('ramo-flores.png') no-repeat center center;
+  background-size:contain;
   transform: scale(0);
+  opacity:0;
   transition: all 1s ease;
 }
 
 .letter.show .bouquet-container {
-  opacity:1;
   transform: scale(1);
-}
-
-/* RESPONSIVE */
-@media (max-width: 600px) {
-  .envelope-container { width: 280px; height: 190px; }
-  .letter { max-width: 360px; padding:15px 12px 20px 12px; }
-  .letter h1 { font-size:20px; }
-  .letter img { max-width:220px; }
-  #message { font-size:14px; min-height:70px; }
-  .letter .bouquet-container { width: 140px; }
+  opacity:1;
 }
 </style>
-</head>
-<body>
 
+<body>
 <h2 class="hint" id="hint">Haz click en la carta 💌</h2>
 
-<!-- SOBRE -->
 <div class="envelope-container" id="envelopeContainer">
   <div class="envelope">
     <div class="flap"></div>
   </div>
 </div>
 
-<!-- CARTA -->
 <div class="letter" id="letter">
   <h1>Hola mi amor 💕</h1>
   <img src="foto.jpg" alt="Para ti">
@@ -187,7 +85,6 @@ body.opened {
 </div>
 
 <script>
-// MENSAJE TYPEWRITER
 const message = `Esta pagina es solo para ti.
 Gracias por estar conmigo.
 Te quiero mas de lo que estas palabras pueden decir.`;
@@ -202,20 +99,20 @@ function typeWriter() {
   }
 }
 
-// ABRIR SOBRE
 document.getElementById("envelopeContainer").onclick = function(){
-  this.classList.add("open"); // animar sobre
+  this.classList.add("open"); // abrir sobre
   document.getElementById("hint").classList.add("hide"); // ocultar hint
-  document.body.classList.add("opened"); // fondo mantiene rosado
 
-  // Mostrar carta con transición
+  // ocultar carta original
+  const letter = document.getElementById("letter");
+  letter.classList.add("hide");
+
+  // mostrar carta con ramo desde el centro
   setTimeout(()=>{
-    const letter = document.getElementById("letter");
+    letter.classList.remove("hide");
     letter.classList.add("show");
-    setTimeout(typeWriter,300);
+    typeWriter();
   },1200);
 };
 </script>
-
 </body>
-</html>
