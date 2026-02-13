@@ -6,56 +6,88 @@
 <title>Para ti 💌</title>
 <style>
 * { margin:0; padding:0; box-sizing:border-box; font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+
+/* FONDO INICIAL ROSADO */
 body {
   display:flex; flex-direction:column; align-items:center; justify-content:center;
-  min-height:100vh; background-color:#111; transition: background 1s;
+  min-height:100vh; background-color:#ffb6c1; transition: background 1s;
 }
 
 /* TEXTO HINT */
 .hint {
-  color:white; font-size:22px; margin-bottom:40px; text-shadow:0 3px 15px rgba(0,0,0,0.4);
+  color:white; font-size:22px; margin-bottom:40px;
+  text-shadow:0 3px 15px rgba(0,0,0,0.4);
   animation: float 2s ease-in-out infinite; position:relative; z-index:10;
 }
 .hint.hide { opacity:0; transform:translateY(-30px); pointer-events:none; }
-@keyframes float { 0%,100%{transform:translateY(0);}50%{transform:translateY(-10px);} }
+@keyframes float {0%,100%{transform:translateY(0);}50%{transform:translateY(-10px);}}
 
 /* SOBRE */
-.envelope-container { width:320px; height:220px; position:relative; cursor:pointer; margin-bottom:50px; z-index:10; transition:all 0.3s, opacity 1s 1.2s; }
-.envelope-container:hover { transform:scale(1.03); }
+.envelope-container {
+  width:320px; height:220px; position:relative; cursor:pointer; margin-bottom:50px; z-index:10;
+  transition: all 0.3s, opacity 1s 1.2s;
+}
+.envelope-container:hover { transform: scale(1.03); }
 .envelope-container.open { pointer-events:none; opacity:0; }
-.envelope { width:100%; height:100%; background:linear-gradient(135deg,#ff6f91 0%,#ff8fab 100%); border-radius:10px; position:relative; overflow:hidden; box-shadow:0 15px 40px rgba(0,0,0,0.3); animation:idle 3s ease-in-out infinite; }
+
+.envelope {
+  width:100%; height:100%; border-radius:10px; position:relative; overflow:hidden;
+  background:linear-gradient(135deg,#ff6f91 0%,#ff8fab 100%);
+  box-shadow:0 15px 40px rgba(0,0,0,0.3); animation:idle 3s ease-in-out infinite;
+}
 @keyframes idle {0%,100%{transform:translateY(0);}50%{transform:translateY(-5px);}}
-.flap { position:absolute; top:0; left:0; width:100%; height:100%; background:linear-gradient(180deg,#ff8fab 0%,#ffa3bd 100%); clip-path: polygon(0 0,100% 0,50% 50%); transform-origin:top center; transition:transform 1.2s cubic-bezier(0.68,-0.55,0.265,1.55); z-index:3; }
+
+.flap {
+  position:absolute; top:0; left:0; width:100%; height:100%;
+  background:linear-gradient(180deg,#ff8fab 0%,#ffa3bd 100%);
+  clip-path: polygon(0 0,100% 0,50% 50%);
+  transform-origin:top center;
+  transition: transform 1.2s cubic-bezier(0.68,-0.55,0.265,1.55); z-index:3;
+}
 .envelope-container.open .envelope { animation:chest 1s ease-in-out forwards; }
 .envelope-container.open .flap { transform:rotateX(180deg); }
 @keyframes chest {0%{transform:scale(1) rotate(0deg);}30%{transform:scale(1.1) rotate(3deg);}50%{transform:scale(1.15) rotate(-3deg);}70%{transform:scale(1.1) rotate(2deg);}100%{transform:scale(1) rotate(0deg);}}
+
+/* WRAPPER PARA CENTRAR CARTA */
+.letter-wrapper {
+  display:flex; justify-content:center; align-items:center;
+  width:100%; max-width:600px; margin:0 auto; position:relative;
+}
 
 /* CARTA */
 .letter {
   background: url('fondo-carta.png') no-repeat center center;
   background-size: cover;
   border-radius:20px;
-  max-width:550px; width:90%; min-height:600px;
-  margin:0 auto; padding:40px 30px 30px 30px;
+  width:90%; max-width:550px; min-height:600px;
+  padding:40px 30px 30px 30px;
   box-shadow:0 30px 60px rgba(0,0,0,0.8);
-  transform:translateY(100px); opacity:0;
-  transition:all 1.8s cubic-bezier(0.34,1.56,0.64,1);
+  opacity:0; transition:all 1.8s cubic-bezier(0.34,1.56,0.64,1);
   position:relative; z-index:10; border:3px solid rgba(255,111,145,0.5);
   display:flex; flex-direction:column; overflow:hidden;
 }
 .letter::before {
   content:""; position:absolute; inset:0; background: rgba(0,0,0,0.25); border-radius:20px; z-index:1;
 }
-.letter.show { transform:translateY(0); opacity:1; }
+.letter.show { opacity:1; }
 
 /* CONTENIDO INTERNO */
-.letter h1 { color:#ff99b8; margin-bottom:18px; text-align:center; font-size:28px; text-shadow:0 3px 15px rgba(255,111,145,0.6); font-weight:600; position:relative; z-index:2; }
-.letter img { width:100%; max-width:300px; display:block; margin:0 auto 18px auto; border-radius:12px; box-shadow:0 8px 25px rgba(0,0,0,0.5); border:3px solid rgba(255,139,171,0.5); position:relative; z-index:2; }
+.letter h1 {
+  color:#ff99b8; margin-bottom:18px; text-align:center; font-size:28px;
+  text-shadow:0 3px 15px rgba(255,111,145,0.6); font-weight:600;
+  position:relative; z-index:2;
+}
+.letter img {
+  width:100%; max-width:300px; display:block; margin:0 auto 18px auto;
+  border-radius:12px; box-shadow:0 8px 25px rgba(0,0,0,0.5);
+  border:3px solid rgba(255,139,171,0.5); position:relative; z-index:2;
+}
 
 /* MENSAJE */
 #message {
-  color:#ffd6e0; font-size:17px; line-height:1.7; text-align:center; min-height:220px; margin:25px 0 35px 0;
-  text-shadow:0 2px 5px rgba(0,0,0,0.8); font-weight:400; word-wrap:break-word; overflow-wrap:break-word; width:100%; position:relative; z-index:2;
+  color:#ffd6e0; font-size:17px; line-height:1.7; text-align:center; min-height:220px;
+  margin:25px 0 35px 0; text-shadow:0 2px 5px rgba(0,0,0,0.8); font-weight:400;
+  word-wrap:break-word; overflow-wrap:break-word; width:100%; position:relative; z-index:2;
 }
 
 /* RAMO */
@@ -70,7 +102,9 @@ body {
 /* CORAZONES */
 .hearts { position:absolute; top:-35px; left:0; width:100%; height:40px; pointer-events:none; z-index:2; overflow:hidden; }
 .heart { position:absolute; font-size:18px; animation:floatHeart 3.5s ease-in-out infinite; opacity:0; filter:drop-shadow(0 2px 6px rgba(0,0,0,0.4)); }
-.heart:nth-child(1){ left:10%; animation-delay:3.5s; } .heart:nth-child(2){ left:50%; animation-delay:4.2s; } .heart:nth-child(3){ left:85%; animation-delay:4.9s; }
+.heart:nth-child(1){ left:10%; animation-delay:3.5s; } 
+.heart:nth-child(2){ left:50%; animation-delay:4.2s; } 
+.heart:nth-child(3){ left:85%; animation-delay:4.9s; }
 @keyframes floatHeart {0%{transform:translateY(0) scale(0);opacity:0;}20%{transform:translateY(-18px) scale(1);opacity:1;}80%{opacity:0.9;}100%{transform:translateY(-45px) scale(1.3);opacity:0;}}
 
 /* RAMO PARTES */
@@ -96,7 +130,7 @@ body {
 
 /* FONDO AL ABRIR */
 body.opened {
-  background-color:#1a1a1a;
+  background-color:#ffb6c1;
   background-image:url('fondo-flores.jpg');
   background-size:contain; background-repeat:no-repeat; background-position:center top;
 }
@@ -107,26 +141,26 @@ body.opened {
 <h2 class="hint" id="hint">Haz click en la carta 💌</h2>
 
 <div class="envelope-container" id="envelopeContainer">
-  <div class="envelope">
-    <div class="flap"></div>
-  </div>
+  <div class="envelope"><div class="flap"></div></div>
 </div>
 
-<div class="letter" id="letter">
-  <h1>Hola mi amor 💕</h1>
-  <img src="foto.jpg" alt="Para ti">
-  <div id="message"></div>
-  <div class="bouquet-container">
-    <div class="hearts">
-      <span class="heart">💕</span>
-      <span class="heart">💗</span>
-      <span class="heart">💖</span>
-    </div>
-    <div class="bouquet-wrapper">
-      <div class="bouquet-aspect-ratio">
-        <div class="bouquet-part bouquet-flowers"></div>
-        <div class="bouquet-part bouquet-stems"></div>
-        <div class="bouquet-part bouquet-bow"></div>
+<div class="letter-wrapper">
+  <div class="letter" id="letter">
+    <h1>Hola mi amor 💕</h1>
+    <img src="foto.jpg" alt="Para ti">
+    <div id="message"></div>
+    <div class="bouquet-container">
+      <div class="hearts">
+        <span class="heart">💕</span>
+        <span class="heart">💗</span>
+        <span class="heart">💖</span>
+      </div>
+      <div class="bouquet-wrapper">
+        <div class="bouquet-aspect-ratio">
+          <div class="bouquet-part bouquet-flowers"></div>
+          <div class="bouquet-part bouquet-stems"></div>
+          <div class="bouquet-part bouquet-bow"></div>
+        </div>
       </div>
     </div>
   </div>
