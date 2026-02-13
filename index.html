@@ -1,149 +1,180 @@
 <!DOCTYPE html>
-<html>
+<html lang="es">
 <head>
 <meta charset="UTF-8">
-<title>Para ti ❤️</title>
-
+<title>Para ti 💌</title>
 <style>
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Segoe UI', sans-serif;
+}
+
 body {
-  margin:0;
-  font-family: Arial;
-  background:#ffe6f0;
-  text-align:center;
-  overflow-x:hidden;
+  height: 100vh;
+  background: #f8b4c6;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 2s;
 }
 
-#title {
-  color:#d6336c;
-  margin-top:40px;
-  font-size:26px;
-  transition:1s;
+/* CONTENEDOR CARTA */
+.container {
+  position: relative;
+  width: 320px;
+  height: 220px;
+  cursor: pointer;
 }
 
-.hide-title {
-  opacity:0;
-  transform:translateY(-40px);
-}
-
+/* SOBRE */
 .envelope {
-  width:300px;
-  height:200px;
-  background:#ff9bb5;
-  margin:80px auto;
-  position:relative;
-  cursor:pointer;
-  border-radius:10px;
-  box-shadow:0 15px 30px rgba(0,0,0,.25);
-  animation:idle 3s infinite;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background: #ff6f91;
+  border-radius: 8px;
+  overflow: hidden;
 }
 
-.flap {
-  position:absolute;
-  top:0;
-  width:100%;
-  height:100%;
-  background:#ff7fa3;
-  clip-path: polygon(0 0, 100% 0, 50% 60%);
-  transform-origin:top;
-  transition:1s;
+.envelope::before {
+  content: "";
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background: #ff8fab;
+  transform: rotate(45deg);
+  top: -60%;
+  left: 0;
 }
 
-.open {
-  animation:chest 1.2s forwards;
+/* TEXTO CLICK */
+.click-text {
+  position: absolute;
+  top: -40px;
+  width: 100%;
+  text-align: center;
+  color: white;
+  animation: float 2s infinite;
 }
 
-.open .flap {
-  transform:rotateX(180deg);
+@keyframes float {
+  0%,100% { transform: translateY(0); }
+  50% { transform: translateY(-8px); }
 }
 
+/* CARTA */
 .letter {
-  position:relative;
-  opacity:0;
-  transform:translateY(-120px);
-  transition:1.5s;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background-color: #111;
+  background-image: 
+    repeating-linear-gradient(45deg, #ff6f91 0 2px, transparent 2px 20px),
+    repeating-linear-gradient(-45deg, #8bd3c7 0 2px, transparent 2px 20px);
+  top: 100%;
+  border-radius: 8px;
+  padding: 20px;
+  color: #ffd6e0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  transition: 1.2s;
+  overflow: hidden;
 }
 
-.show-letter {
-  opacity:1;
-  transform:translateY(0);
+.container.open .letter {
+  top: 0;
 }
 
-.card {
-  background:white;
-  padding:30px;
-  border-radius:15px;
-  max-width:500px;
-  margin:30px auto;
-  box-shadow:0 10px 25px rgba(0,0,0,.2);
+/* TEXTO MAQUINA */
+#message {
+  min-height: 90px;
+  text-align: center;
+  margin-bottom: 20px;
+  font-size: 18px;
 }
 
-img {
-  width:100%;
-  border-radius:10px;
-  margin:15px 0;
+/* RAMO SVG */
+.bouquet {
+  width: 200px;
+  animation: breathe 4s ease-in-out infinite;
 }
 
-#type {
-  font-size:18px;
-  line-height:1.6;
+@keyframes breathe {
+  0%,100% { transform: scale(1); }
+  50% { transform: scale(1.03); }
 }
 
-@keyframes chest {
-  0% {transform:scale(1);}
-  30%{transform:scale(1.2) rotate(2deg);}
-  50%{transform:scale(1.3) rotate(-2deg);}
-  70%{transform:scale(1.2) rotate(2deg);}
-  100%{transform:scale(1);}
+.draw {
+  fill: none;
+  stroke: #ff6f91;
+  stroke-width: 4;
+  stroke-dasharray: 300;
+  stroke-dashoffset: 300;
+  animation: drawLine 3s ease forwards;
 }
 
-@keyframes idle {
-  0%,100%{transform:scale(1);}
-  50%{transform:scale(1.05);}
+@keyframes drawLine {
+  to { stroke-dashoffset: 0; }
 }
 </style>
 </head>
 
 <body>
 
-<h2 id="title">Haz click en la carta 💌</h2>
+<div class="container" onclick="openLetter()">
+  <div class="click-text" id="clickText">Haz click en la carta</div>
+  <div class="envelope"></div>
 
-<div class="envelope" onclick="openLetter(this)">
-  <div class="flap"></div>
-</div>
+  <div class="letter">
+    <div id="message"></div>
 
-<div class="letter" id="letter">
-  <div class="card">
-    <h1>Sorpresa 💕</h1>
-    <img src="foto.jpg">
-    <p id="type"></p>
+    <svg class="bouquet" viewBox="0 0 300 220">
+      <line class="draw" x1="150" y1="90" x2="150" y2="200"/>
+      <line class="draw" x1="130" y1="100" x2="140" y2="200"/>
+      <line class="draw" x1="170" y1="100" x2="160" y2="200"/>
+      <circle class="draw" cx="150" cy="70" r="22"/>
+      <circle class="draw" cx="130" cy="90" r="20"/>
+      <circle class="draw" cx="170" cy="90" r="20"/>
+      <circle class="draw" cx="150" cy="50" r="18"/>
+    </svg>
   </div>
 </div>
 
-<audio id="music" src="musica.mp3" loop></audio>
-
 <script>
-const text = `prueba de typewriter effect, hola, HOLA 1 2 3 4 5 6 7 8 9 0`;
+const text = [
+  "Esta pagina es solo para ti.",
+  "Gracias por estar conmigo.",
+  "Te quiero mas de lo que estas palabras pueden decir."
+];
 
-let i = 0;
-const speed = 40;
+let line = 0;
+let char = 0;
 
-function openLetter(el){
-  el.classList.add("open");
-  document.getElementById("title").classList.add("hide-title");
-  document.getElementById("music").play();
+function openLetter() {
+  document.querySelector(".container").classList.add("open");
+  document.getElementById("clickText").style.opacity = 0;
 
-  setTimeout(()=>{
-    document.getElementById("letter").classList.add("show-letter");
-    typeWriter();
-  },1200);
+  document.body.style.background = "#111";
+
+  typeEffect();
 }
 
-function typeWriter(){
-  if(i < text.length){
-    document.getElementById("type").innerHTML += 
-      text[i] === "\n" ? "<br>" : text[i];
-    i++;
-    setTimeout(typeWriter, speed);
+function typeEffect() {
+  if (line < text.length) {
+    if (char < text[line].length) {
+      document.getElementById("message").innerHTML += text[line][char];
+      char++;
+      setTimeout(typeEffect, 60);
+    } else {
+      document.getElementById("message").innerHTML += "<br>";
+      char = 0;
+      line++;
+      setTimeout(typeEffect, 600);
+    }
   }
 }
 </script>
