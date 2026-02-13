@@ -17,14 +17,18 @@ body {
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  background-color: #fef6f6; /* Fondo suave antes de abrir la carta */
+  transition: background 1s ease; /* transición suave al abrir */
 }
-
 
 body.opened {
   background-color: #1a1a1a;
   background-image: url('fondo-flores.jpg');
-  background-size: contain;
+  background-size: cover; /* cubre toda la pantalla */
+  background-position: center; /* centra la imagen */
+  background-repeat: no-repeat; /* evita que se repita */
 }
+
 
 
 /* TEXTO HINT */
