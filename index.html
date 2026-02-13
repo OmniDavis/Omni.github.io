@@ -47,8 +47,9 @@ body {
   background: transparent;
   padding: 20px;
   border-radius: 15px;
-  max-width: 460px;
+  max-width: 400px;
   width: 90%;
+  aspect-ratio: 3/4; /* proporción vertical para que coincida con la imagen */
   margin: 0 auto;
   box-shadow: 0 20px 40px rgba(0,0,0,0.3);
   transform: scale(0.55) translateY(0);
@@ -58,6 +59,7 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: center;
 }
 
 /* Fondo de flores dentro de la carta */
@@ -66,7 +68,7 @@ body {
   position:absolute;
   inset:0;
   background: url('fondo-flores.jpg') no-repeat center center;
-  background-size: cover; /* vuelve a cover para llenar todo el espacio */
+  background-size: 100% 100%; /* estira la imagen para llenar exactamente */
   border-radius: 15px;
   z-index: 0;
 }
@@ -78,23 +80,23 @@ body {
 .bouquet-container { position: relative; z-index: 1; }
 
 .letter.show {
-  transform: scale(1) translateY(-120px);
+  transform: scale(1) translateY(-80px);
   opacity: 1;
 }
 
 /* TEXTO */
 .letter h1 {
-  color: white; /* cambiado a blanco */
+  color: white;
   margin-bottom: 12px;
   text-align: center;
   font-size: 20px;
-  text-shadow: 0 2px 4px rgba(0,0,0,0.3); /* sombra para legibilidad */
+  text-shadow: 0 2px 4px rgba(0,0,0,0.5);
 }
 
 /* FOTO */
 .letter img {
-  width: 80%;
-  max-width: 250px;
+  width: 70%;
+  max-width: 220px;
   display: block;
   margin: 12px auto;
   border-radius: 10px;
@@ -103,18 +105,18 @@ body {
 
 /* MENSAJE TYPEWRITER */
 #message {
-  color: white; /* cambiado a blanco */
+  color: white;
   font-size: 14px;
   line-height: 1.5;
   text-align: center;
   min-height: 80px;
   margin: 12px 0;
-  text-shadow: 0 2px 4px rgba(0,0,0,0.3); /* sombra para legibilidad */
+  text-shadow: 0 2px 4px rgba(0,0,0,0.5);
 }
 
 /* RAMO DE FLORES PNG */
 .bouquet-container {
-  width: 120px;
+  width: 100px;
   margin: 15px auto 0;
   opacity: 0;
   transform: scale(0);
@@ -136,8 +138,8 @@ body {
   .letter { padding: 15px; max-width: 90%; }
   .letter h1 { font-size: 18px; }
   #message { font-size: 13px; }
-  .letter img { max-width: 200px; }
-  .bouquet-container { width: 100px; }
+  .letter img { max-width: 180px; }
+  .bouquet-container { width: 85px; }
 }
 </style>
 </head>
