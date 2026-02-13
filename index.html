@@ -21,30 +21,8 @@ body {
   justify-content: center;
   padding: 20px;
   overflow-x: hidden;
-  transition: all 1.5s ease;
+  transition: background 1.5s ease;
   position: relative;
-}
-
-/* Fondo con imagen de flores - SOLO CAMBIA "fondo-flores.jpg" por el nombre de tu archivo */
-body::before {
-  content: '';
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-image: url('fondo-flores.jpg');
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
-  opacity: 0;
-  transition: opacity 1.5s ease;
-  z-index: 0;
-  pointer-events: none;
-}
-
-body.opened::before {
-  opacity: 1;
 }
 
 body.opened {
@@ -135,10 +113,9 @@ body.opened {
   100% { transform: scale(1); }
 }
 
-/* CARTA */
+/* CARTA CON FONDO DE FLORES */
 .letter {
-  background: rgba(30, 30, 30, 0.95);
-  backdrop-filter: blur(10px);
+  background: #1e1e1e;
   padding: 40px 30px;
   border-radius: 15px;
   max-width: 550px;
@@ -151,6 +128,34 @@ body.opened {
   position: relative;
   z-index: 10;
   border: 2px solid rgba(255, 111, 145, 0.3);
+  overflow: hidden;
+}
+
+/* Fondo de flores SOLO en la carta */
+.letter::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: url('fondo-flores.jpg');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  opacity: 0;
+  transition: opacity 1.5s ease 0.5s;
+  z-index: 0;
+  pointer-events: none;
+}
+
+.letter.show::before {
+  opacity: 0.3;
+}
+
+.letter-content {
+  position: relative;
+  z-index: 1;
 }
 
 .letter.show {
@@ -185,23 +190,24 @@ body.opened {
   text-align: center;
   min-height: 120px;
   margin: 25px 0;
-  text-shadow: 0 1px 3px rgba(0,0,0,0.3);
+  text-shadow: 0 1px 3px rgba(0,0,0,0.5);
 }
 
-/* RAMO DE FLORES MEJORADO */
+/* RAMO DE FLORES SIMPLE Y BONITO */
 .bouquet-container {
-  width: 180px;
+  width: 200px;
   margin: 30px auto 0;
-  display: block;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   opacity: 0;
-  animation: fadeInBouquet 1.5s ease forwards 1s;
-  position: relative;
+  animation: fadeInBouquet 1.5s ease forwards 2s;
 }
 
 @keyframes fadeInBouquet {
   0% { 
     opacity: 0;
-    transform: translateY(30px) scale(0.8);
+    transform: translateY(20px) scale(0.9);
   }
   100% { 
     opacity: 1;
@@ -209,60 +215,266 @@ body.opened {
   }
 }
 
-.bouquet {
-  width: 100%;
-  height: auto;
-  filter: drop-shadow(0 5px 15px rgba(0,0,0,0.3));
-  animation: breathe 4s ease-in-out infinite;
+.flowers {
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  gap: 8px;
+  margin-bottom: 5px;
+  animation: breathe 3s ease-in-out infinite;
 }
 
 @keyframes breathe {
   0%, 100% { transform: scale(1); }
-  50% { transform: scale(1.08); }
+  50% { transform: scale(1.05); }
+}
+
+.flower {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  position: relative;
+  animation: popIn 0.5s ease backwards;
+}
+
+.flower:nth-child(1) { 
+  background: linear-gradient(135deg, #d45d79 0%, #c74d6a 100%);
+  animation-delay: 2.2s;
+  transform: translateY(5px);
+}
+
+.flower:nth-child(2) { 
+  background: linear-gradient(135deg, #f4a79d 0%, #e89484 100%);
+  width: 45px;
+  height: 45px;
+  animation-delay: 2.3s;
+}
+
+.flower:nth-child(3) { 
+  background: linear-gradient(135deg, #d45d79 0%, #c74d6a 100%);
+  width: 55px;
+  height: 55px;
+  animation-delay: 2.4s;
+  transform: translateY(-5px);
+}
+
+.flower:nth-child(4) { 
+  background: linear-gradient(135deg, #f5b5c5 0%, #e9a3b5 100%);
+  width: 48px;
+  height: 48px;
+  animation-delay: 2.5s;
+}
+
+.flower:nth-child(5) { 
+  background: linear-gradient(135deg, #d45d79 0%, #c74d6a 100%);
+  animation-delay: 2.6s;
+  transform: translateY(3px);
+}
+
+@keyframes popIn {
+  0% {
+    transform: scale(0) translateY(0);
+    opacity: 0;
+  }
+  60% {
+    transform: scale(1.15) translateY(-5px);
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+/* Centros de las flores */
+.flower::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 15px;
+  height: 15px;
+  background: rgba(255, 255, 255, 0.3);
+  border-radius: 50%;
+}
+
+/* Tallos */
+.stems {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  height: 60px;
+  position: relative;
+  animation: growStems 0.8s ease backwards 2.1s;
+}
+
+@keyframes growStems {
+  from {
+    transform: scaleY(0);
+    opacity: 0;
+  }
+  to {
+    transform: scaleY(1);
+    opacity: 1;
+  }
+}
+
+.stem {
+  width: 4px;
+  height: 100%;
+  background: linear-gradient(180deg, #6b9b6e 0%, #5a8a5d 100%);
+  border-radius: 2px;
+  position: relative;
+}
+
+.stem:nth-child(1) { height: 55px; }
+.stem:nth-child(2) { height: 50px; }
+.stem:nth-child(3) { height: 60px; }
+.stem:nth-child(4) { height: 52px; }
+.stem:nth-child(5) { height: 55px; }
+
+/* Hojas pequeñas */
+.stem::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: -8px;
+  width: 12px;
+  height: 6px;
+  background: #7aaa7d;
+  border-radius: 50%;
+  opacity: 0.7;
+}
+
+/* Moño */
+.bow {
+  margin-top: -10px;
+  animation: tiebow 0.6s ease backwards 2.7s;
+}
+
+@keyframes tiebow {
+  0% {
+    transform: scale(0) rotate(-180deg);
+    opacity: 0;
+  }
+  60% {
+    transform: scale(1.1) rotate(5deg);
+  }
+  100% {
+    transform: scale(1) rotate(0deg);
+    opacity: 1;
+  }
+}
+
+.bow-shape {
+  width: 80px;
+  height: 35px;
+  background: linear-gradient(135deg, #f4d19b 0%, #efc078 100%);
+  border-radius: 20px 20px 0 0;
+  position: relative;
+  box-shadow: 0 3px 10px rgba(0,0,0,0.2);
+}
+
+.bow-shape::before,
+.bow-shape::after {
+  content: '';
+  position: absolute;
+  top: 5px;
+  width: 35px;
+  height: 25px;
+  background: linear-gradient(135deg, #f4d19b 0%, #efc078 100%);
+  border-radius: 50%;
+  box-shadow: inset 0 2px 5px rgba(0,0,0,0.1);
+}
+
+.bow-shape::before {
+  left: -25px;
+  transform: rotate(-15deg);
+}
+
+.bow-shape::after {
+  right: -25px;
+  transform: rotate(15deg);
+}
+
+/* Centro del moño */
+.bow-center {
+  position: absolute;
+  top: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 20px;
+  height: 15px;
+  background: #d9a960;
+  border-radius: 3px;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+}
+
+/* Cintas */
+.ribbon {
+  position: absolute;
+  bottom: -20px;
+  width: 8px;
+  height: 25px;
+  background: linear-gradient(180deg, #f4d19b 0%, #efc078 100%);
+  border-radius: 0 0 3px 3px;
+}
+
+.ribbon:nth-child(1) {
+  left: 30%;
+  transform: rotate(-10deg);
+}
+
+.ribbon:nth-child(2) {
+  right: 30%;
+  transform: rotate(10deg);
 }
 
 /* Corazones flotantes */
-.floating-hearts {
+.hearts {
   position: absolute;
-  top: -30px;
+  top: -40px;
   left: 0;
   width: 100%;
-  height: 40px;
+  height: 50px;
   pointer-events: none;
 }
 
-.heart-float {
+.heart {
   position: absolute;
-  font-size: 16px;
-  animation: floatUp 3s ease-in-out infinite;
+  font-size: 18px;
+  animation: floatHeart 3s ease-in-out infinite;
   opacity: 0;
 }
 
-.heart-float:nth-child(1) {
+.heart:nth-child(1) {
   left: 20%;
-  animation-delay: 0s;
+  animation-delay: 3s;
 }
 
-.heart-float:nth-child(2) {
+.heart:nth-child(2) {
   left: 50%;
-  animation-delay: 1s;
+  animation-delay: 3.5s;
 }
 
-.heart-float:nth-child(3) {
+.heart:nth-child(3) {
   left: 75%;
-  animation-delay: 2s;
+  animation-delay: 4s;
 }
 
-@keyframes floatUp {
+@keyframes floatHeart {
   0% {
-    transform: translateY(0) scale(0.8);
+    transform: translateY(0) scale(0);
     opacity: 0;
   }
-  50% {
+  20% {
+    opacity: 0.8;
+    transform: translateY(-10px) scale(1);
+  }
+  80% {
     opacity: 0.8;
   }
   100% {
-    transform: translateY(-25px) scale(1.1);
+    transform: translateY(-30px) scale(1.2);
     opacity: 0;
   }
 }
@@ -287,7 +499,21 @@ body.opened {
   }
   
   .bouquet-container {
-    width: 150px;
+    width: 170px;
+  }
+  
+  .flowers {
+    gap: 5px;
+  }
+  
+  .flower {
+    width: 40px;
+    height: 40px;
+  }
+  
+  .flower:nth-child(3) {
+    width: 45px;
+    height: 45px;
   }
 }
 </style>
@@ -303,120 +529,43 @@ body.opened {
 </div>
 
 <div class="letter" id="letter">
-  <h1>Hola mi amor 💕</h1>
-  <img src="foto.jpg" alt="Para ti">
-  <div id="message"></div>
-  
-  <!-- Ramo de flores mejorado -->
-  <div class="bouquet-container">
-    <div class="floating-hearts">
-      <span class="heart-float">💕</span>
-      <span class="heart-float">💗</span>
-      <span class="heart-float">💖</span>
+  <div class="letter-content">
+    <h1>Hola mi amor 💕</h1>
+    <img src="foto.jpg" alt="Para ti">
+    <div id="message"></div>
+    
+    <!-- Ramo de flores simplificado y bonito -->
+    <div class="bouquet-container">
+      <div class="hearts">
+        <span class="heart">💕</span>
+        <span class="heart">💗</span>
+        <span class="heart">💖</span>
+      </div>
+      
+      <div class="flowers">
+        <div class="flower"></div>
+        <div class="flower"></div>
+        <div class="flower"></div>
+        <div class="flower"></div>
+        <div class="flower"></div>
+      </div>
+      
+      <div class="stems">
+        <div class="stem"></div>
+        <div class="stem"></div>
+        <div class="stem"></div>
+        <div class="stem"></div>
+        <div class="stem"></div>
+      </div>
+      
+      <div class="bow">
+        <div class="bow-shape">
+          <div class="bow-center"></div>
+          <div class="ribbon"></div>
+          <div class="ribbon"></div>
+        </div>
+      </div>
     </div>
-    <svg class="bouquet" viewBox="0 0 200 220" xmlns="http://www.w3.org/2000/svg">
-      <!-- Tallos -->
-      <line x1="100" y1="150" x2="100" y2="210" stroke="#6b9b6e" stroke-width="5" stroke-linecap="round"/>
-      <line x1="70" y1="160" x2="85" y2="210" stroke="#6b9b6e" stroke-width="4" stroke-linecap="round"/>
-      <line x1="130" y1="160" x2="115" y2="210" stroke="#6b9b6e" stroke-width="4" stroke-linecap="round"/>
-      
-      <!-- Hojas -->
-      <ellipse cx="90" cy="175" rx="10" ry="5" fill="#7aaa7d" opacity="0.7"/>
-      <ellipse cx="110" cy="180" rx="10" ry="5" fill="#7aaa7d" opacity="0.7"/>
-      
-      <!-- Flor grande central (roja) -->
-      <circle cx="100" cy="80" r="24" fill="#d45d79" opacity="0.3"/>
-      <circle cx="100" cy="80" r="20" fill="#d45d79" opacity="0.5"/>
-      <circle cx="95" cy="75" r="18" fill="#d45d79"/>
-      <circle cx="105" cy="75" r="18" fill="#d45d79"/>
-      <circle cx="95" cy="85" r="18" fill="#c74d6a"/>
-      <circle cx="105" cy="85" r="18" fill="#c74d6a"/>
-      <circle cx="100" cy="80" r="10" fill="#8b3a52" opacity="0.6"/>
-      
-      <!-- Flor izquierda (roja) -->
-      <circle cx="70" cy="100" r="20" fill="#d45d79" opacity="0.3"/>
-      <circle cx="70" cy="100" r="16" fill="#d45d79" opacity="0.5"/>
-      <circle cx="66" cy="96" r="15" fill="#d45d79"/>
-      <circle cx="74" cy="96" r="15" fill="#d45d79"/>
-      <circle cx="66" cy="104" r="15" fill="#c74d6a"/>
-      <circle cx="74" cy="104" r="15" fill="#c74d6a"/>
-      <circle cx="70" cy="100" r="8" fill="#8b3a52" opacity="0.6"/>
-      
-      <!-- Flor derecha (roja) -->
-      <circle cx="130" cy="100" r="20" fill="#d45d79" opacity="0.3"/>
-      <circle cx="130" cy="100" r="16" fill="#d45d79" opacity="0.5"/>
-      <circle cx="126" cy="96" r="15" fill="#d45d79"/>
-      <circle cx="134" cy="96" r="15" fill="#d45d79"/>
-      <circle cx="126" cy="104" r="15" fill="#c74d6a"/>
-      <circle cx="134" cy="104" r="15" fill="#c74d6a"/>
-      <circle cx="130" cy="100" r="8" fill="#8b3a52" opacity="0.6"/>
-      
-      <!-- Flor pequeña superior (melocotón) -->
-      <circle cx="100" cy="50" r="16" fill="#f4a79d" opacity="0.3"/>
-      <circle cx="100" cy="50" r="13" fill="#f4a79d" opacity="0.5"/>
-      <circle cx="97" cy="47" r="12" fill="#f4a79d"/>
-      <circle cx="103" cy="47" r="12" fill="#f4a79d"/>
-      <circle cx="97" cy="53" r="12" fill="#e89484"/>
-      <circle cx="103" cy="53" r="12" fill="#e89484"/>
-      <circle cx="100" cy="50" r="6" fill="#d67d6d" opacity="0.6"/>
-      
-      <!-- Flor pequeña izquierda inferior (melocotón) -->
-      <circle cx="50" cy="125" r="14" fill="#f4a79d" opacity="0.3"/>
-      <circle cx="50" cy="125" r="11" fill="#f4a79d" opacity="0.5"/>
-      <circle cx="47" cy="122" r="10" fill="#f4a79d"/>
-      <circle cx="53" cy="122" r="10" fill="#f4a79d"/>
-      <circle cx="47" cy="128" r="10" fill="#e89484"/>
-      <circle cx="53" cy="128" r="10" fill="#e89484"/>
-      <circle cx="50" cy="125" r="5" fill="#d67d6d" opacity="0.6"/>
-      
-      <!-- Flor pequeña derecha inferior (rosa) -->
-      <circle cx="150" cy="120" r="14" fill="#f5b5c5" opacity="0.3"/>
-      <circle cx="150" cy="120" r="11" fill="#f5b5c5" opacity="0.5"/>
-      <circle cx="147" cy="117" r="10" fill="#f5b5c5"/>
-      <circle cx="153" cy="117" r="10" fill="#f5b5c5"/>
-      <circle cx="147" cy="123" r="10" fill="#e9a3b5"/>
-      <circle cx="153" cy="123" r="10" fill="#e9a3b5"/>
-      <circle cx="150" cy="120" r="5" fill="#d68fa3" opacity="0.6"/>
-      
-      <!-- Flor mediana centro-derecha (rosa) -->
-      <circle cx="115" cy="115" r="16" fill="#f5b5c5" opacity="0.3"/>
-      <circle cx="115" cy="115" r="13" fill="#f5b5c5" opacity="0.5"/>
-      <circle cx="112" cy="112" r="12" fill="#f5b5c5"/>
-      <circle cx="118" cy="112" r="12" fill="#f5b5c5"/>
-      <circle cx="112" cy="118" r="12" fill="#e9a3b5"/>
-      <circle cx="118" cy="118" r="12" fill="#e9a3b5"/>
-      <circle cx="115" cy="115" r="6" fill="#d68fa3" opacity="0.6"/>
-      
-      <!-- Puntos decorativos -->
-      <circle cx="40" cy="110" r="3" fill="#f4a79d" opacity="0.7"/>
-      <circle cx="45" cy="95" r="2.5" fill="#f5b5c5" opacity="0.6"/>
-      <circle cx="160" cy="105" r="3" fill="#f4a79d" opacity="0.7"/>
-      <circle cx="155" cy="95" r="2.5" fill="#f5b5c5" opacity="0.6"/>
-      <circle cx="85" cy="130" r="2" fill="#f5b5c5" opacity="0.5"/>
-      <circle cx="115" cy="135" r="2" fill="#f4a79d" opacity="0.5"/>
-      
-      <!-- Moño / Lazo (mejorado) -->
-      <g class="bow">
-        <!-- Nudo central -->
-        <ellipse cx="100" cy="195" rx="14" ry="12" fill="#f4d19b"/>
-        <ellipse cx="100" cy="195" rx="10" ry="8" fill="#efc078"/>
-        <rect x="96" y="192" width="8" height="6" fill="#d9a960" opacity="0.5"/>
-        
-        <!-- Lazo izquierdo -->
-        <ellipse cx="78" cy="195" rx="20" ry="15" fill="#f4d19b" transform="rotate(-25 78 195)"/>
-        <ellipse cx="78" cy="195" rx="16" ry="11" fill="#efc078" transform="rotate(-25 78 195)"/>
-        
-        <!-- Lazo derecho -->
-        <ellipse cx="122" cy="195" rx="20" ry="15" fill="#f4d19b" transform="rotate(25 122 195)"/>
-        <ellipse cx="122" cy="195" rx="16" ry="11" fill="#efc078" transform="rotate(25 122 195)"/>
-        
-        <!-- Cintas colgantes -->
-        <path d="M 95 200 L 88 215 L 90 218 L 97 203 Z" fill="#f4d19b"/>
-        <path d="M 105 200 L 112 215 L 110 218 L 103 203 Z" fill="#f4d19b"/>
-        <polygon points="88,215 90,218 87,220" fill="#efc078"/>
-        <polygon points="112,215 110,218 113,220" fill="#efc078"/>
-      </g>
-    </svg>
   </div>
 </div>
 
@@ -441,7 +590,7 @@ document.getElementById("envelopeContainer").onclick = function() {
   // Abrir sobre
   this.classList.add("open");
   
-  // Cambiar fondo con flores
+  // Cambiar fondo
   document.body.classList.add("opened");
   
   // Ocultar hint
