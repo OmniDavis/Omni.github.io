@@ -98,21 +98,53 @@ body {
 
 /* TEXTO */
 .letter h1 {
-  color: white;
+  color: #fff;
   margin: 0;
   text-align: center;
   font-size: 26px;
-  text-shadow: 0 2px 4px rgba(0,0,0,0.5);
+  text-shadow: 
+    0 0 10px #ff6f91,
+    0 0 20px #ff6f91,
+    0 0 30px #ff6f91,
+    0 0 40px #ff1493,
+    0 0 70px #ff1493,
+    0 0 80px #ff1493,
+    0 0 100px #ff1493,
+    0 0 150px #ff1493;
+  animation: neon-flicker 1.5s infinite alternate;
+}
+
+@keyframes neon-flicker {
+  0%, 19%, 21%, 23%, 25%, 54%, 56%, 100% {
+    text-shadow: 
+      0 0 10px #ff6f91,
+      0 0 20px #ff6f91,
+      0 0 30px #ff6f91,
+      0 0 40px #ff1493,
+      0 0 70px #ff1493,
+      0 0 80px #ff1493,
+      0 0 100px #ff1493,
+      0 0 150px #ff1493;
+  }
+  20%, 24%, 55% {
+    text-shadow: none;
+  }
 }
 
 /* MENSAJE TYPEWRITER */
 #message {
-  color: white;
+  color: #fff;
   font-size: 17px;
   line-height: 1.6;
   text-align: center;
   min-height: 100px;
-  text-shadow: 0 2px 4px rgba(0,0,0,0.5);
+  text-shadow: 
+    0 0 10px #ff6f91,
+    0 0 20px #ff6f91,
+    0 0 30px #ff6f91,
+    0 0 40px #ff1493,
+    0 0 70px #ff1493,
+    0 0 80px #ff1493;
 }
 
 /* RESPONSIVE */
