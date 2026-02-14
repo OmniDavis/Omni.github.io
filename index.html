@@ -17,7 +17,6 @@ body {
   padding: 20px;
   overflow-x: hidden;
   transition: background 4s cubic-bezier(.19,1,.22,1);
-
 }
 
 /* FONDO OSCURO AL ABRIR */
@@ -53,7 +52,7 @@ body.opened {
   box-shadow:
     0 0 15px rgba(255,105,180,0.6),
     0 0 35px rgba(255,20,147,0.6),
-    0 0 70px rgba(255,20,147,0.5); /* NEON */
+    0 0 70px rgba(255,20,147,0.5);
   transform: scale(0.55);
   opacity: 0;
   transition: all 1.4s cubic-bezier(.19,1,.22,1);
@@ -90,7 +89,7 @@ body.opened {
 .letter.show {
   transform: scale(1) translateY(-200px);
   opacity: 1;
-  animation: neonPulse 3s infinite; /* PULSO */
+  animation: neonPulse 3s infinite;
 }
 
 .text-container {
@@ -197,7 +196,7 @@ document.getElementById("envelopeContainer").onclick = function() {
   setTimeout(() => {
     document.getElementById("letter").classList.add("show");
     setTimeout(typeWriter, 500);
-  }, 1200);
+  }, 800); <!-- UNICO CAMBIO -->
 };
 </script>
 
