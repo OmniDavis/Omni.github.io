@@ -45,22 +45,20 @@ body {
 .letter {
   position: relative;
   background: transparent;
-  padding: 40px 30px;   /* un poco mas de aire */
+  padding: 20px 30px;
   border-radius: 15px;
   max-width: 550px;
   width: 90%;
+  aspect-ratio: 3/4;
   margin: 0 auto;
   box-shadow: 0 20px 40px rgba(0,0,0,0.3);
   transform: scale(0.55) translateY(0);
   opacity: 0;
   transition: all 1.2s ease;
-  overflow: visible;   /* ya no corta nada */
+  overflow: hidden;
   display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: flex-start;
 }
-
 
 /* Fondo de flores */
 .letter::before {
@@ -81,18 +79,24 @@ body {
   opacity: 1;
 }
 
-/* CONTENEDOR */
+/* CONTENEDOR CON SCROLL */
 .text-container {
   position: relative;
   z-index: 1;
   width: 85%;
   max-width: 450px;
+  flex: 1;
+  overflow-y: auto;
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
   gap: 20px;
   padding: 30px 20px;
+}
+
+/* Scroll invisible */
+.text-container::-webkit-scrollbar {
+  width: 0;
 }
 
 /* TITULO */
@@ -104,12 +108,7 @@ body {
   text-shadow: 
     0 0 10px #ff6f91,
     0 0 20px #ff6f91,
-    0 0 30px #ff6f91,
-    0 0 40px #ff1493,
-    0 0 70px #ff1493,
-    0 0 80px #ff1493,
-    0 0 100px #ff1493,
-    0 0 150px #ff1493;
+    0 0 40px #ff1493;
   animation: neon-flicker 1.5s infinite alternate;
 }
 
@@ -184,14 +183,13 @@ function typeWriter() {
     document.getElementById("message").textContent += char;
     charIndex++;
 
-    let speed = 30;
-    if (char === "." || char === ",") speed = 120;
-    if (char === "\n") speed = 200;
+    let speed = 35;
+    if (char === "." || char === ",") speed = 140;
+    if (char === "\n") speed = 220;
 
     setTimeout(typeWriter, speed);
   }
 }
-
 
 document.getElementById("envelopeContainer").onclick = function() {
   this.classList.add("open");
