@@ -58,10 +58,10 @@ body {
   overflow: hidden;
   display: flex;
   flex-direction: column;
-  align-items: center; /* FIX 1 */
+  align-items: center;
 }
 
-/* Fondo de flores */
+/* Fondo */
 .letter::before {
   content:"";
   position:absolute;
@@ -80,26 +80,23 @@ body {
   opacity: 1;
 }
 
-/* CONTENEDOR CON SCROLL */
+/* CONTENEDOR */
 .text-container {
   position: relative;
   z-index: 1;
   width: 85%;
   max-width: 450px;
-  height: 60%;              /* FIX 2 */
+  height: 60%;
   overflow-y: auto;
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 20px;
-  padding: 30px 20px 140px; /* espacio para el gato */
+  padding: 30px 20px 140px;
   margin-top: 180px;
 }
 
-/* Scroll invisible */
-.text-container::-webkit-scrollbar {
-  width: 0;
-}
+.text-container::-webkit-scrollbar { width: 0; }
 
 /* TITULO */
 .letter h1 {
@@ -107,15 +104,12 @@ body {
   margin: 0;
   text-align: center;
   font-size: 26px;
-  text-shadow: 
-    0 0 10px #ff6f91,
-    0 0 20px #ff6f91,
-    0 0 40px #ff1493;
+  text-shadow: 0 0 10px #ff6f91,0 0 20px #ff6f91,0 0 40px #ff1493;
   animation: neon-flicker 1.5s infinite alternate;
 }
 
 @keyframes neon-flicker {
-  0%,100% { text-shadow: 0 0 10px #ff6f91, 0 0 20px #ff6f91, 0 0 40px #ff1493; }
+  0%,100% { text-shadow: 0 0 10px #ff6f91,0 0 20px #ff6f91,0 0 40px #ff1493; }
   50% { text-shadow: none; }
 }
 
@@ -127,10 +121,7 @@ body {
   text-align: center;
   min-height: 100px;
   white-space: pre-line;
-  text-shadow: 
-    0 0 10px #ff6f91,
-    0 0 20px #ff6f91,
-    0 0 40px #ff1493;
+  text-shadow: 0 0 10px #ff6f91,0 0 20px #ff6f91,0 0 40px #ff1493;
 }
 </style>
 </head>
@@ -178,6 +169,8 @@ porque tu representas todo mi mundo.
 Te amo y siempre lo haré.`;
 
 let charIndex = 0;
+const box = document.querySelector('.text-container');
+let autoStarted = false;
 
 function typeWriter() {
   if (charIndex < message.length) {
@@ -190,6 +183,24 @@ function typeWriter() {
     if (char === "\n") speed = 220;
 
     setTimeout(typeWriter, speed);
+  } else {
+    startAutoScroll();
+  }
+}
+
+let scrollSpeed = 0.4;
+
+function autoScroll() {
+  if (box.scrollHeight > box.clientHeight) {
+    box.scrollTop += scrollSpeed;
+  }
+  requestAnimationFrame(autoScroll);
+}
+
+function startAutoScroll(){
+  if(!autoStarted){
+    autoStarted = true;
+    autoScroll();
   }
 }
 
