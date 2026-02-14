@@ -62,7 +62,7 @@ body {
   justify-content: center;
 }
 
-/* Fondo de flores dentro de la carta */
+/* Fondo de flores */
 .letter::before {
   content:"";
   position:absolute;
@@ -73,7 +73,6 @@ body {
   z-index: 0;
 }
 
-/* Contenido encima del fondo */
 .letter h1,
 #message { position: relative; z-index: 1; }
 
@@ -82,7 +81,7 @@ body {
   opacity: 1;
 }
 
-/* CONTENEDOR DE TEXTO */
+/* CONTENEDOR */
 .text-container {
   position: relative;
   z-index: 1;
@@ -96,7 +95,7 @@ body {
   padding: 30px 20px;
 }
 
-/* TEXTO */
+/* TITULO */
 .letter h1 {
   color: #fff;
   margin: 0;
@@ -115,46 +114,22 @@ body {
 }
 
 @keyframes neon-flicker {
-  0%, 19%, 21%, 23%, 25%, 54%, 56%, 100% {
-    text-shadow: 
-      0 0 10px #ff6f91,
-      0 0 20px #ff6f91,
-      0 0 30px #ff6f91,
-      0 0 40px #ff1493,
-      0 0 70px #ff1493,
-      0 0 80px #ff1493,
-      0 0 100px #ff1493,
-      0 0 150px #ff1493;
-  }
-  20%, 24%, 55% {
-    text-shadow: none;
-  }
+  0%,100% { text-shadow: 0 0 10px #ff6f91, 0 0 20px #ff6f91, 0 0 40px #ff1493; }
+  50% { text-shadow: none; }
 }
 
-/* MENSAJE TYPEWRITER */
+/* MENSAJE */
 #message {
   color: #fff;
   font-size: 17px;
   line-height: 1.6;
   text-align: center;
   min-height: 100px;
+  white-space: pre-line;
   text-shadow: 
     0 0 10px #ff6f91,
     0 0 20px #ff6f91,
-    0 0 30px #ff6f91,
-    0 0 40px #ff1493,
-    0 0 70px #ff1493,
-    0 0 80px #ff1493;
-}
-
-/* RESPONSIVE */
-@media (max-width: 600px) {
-  .envelope-container { width: 280px; height: 190px; }
-  .letter { padding: 15px 20px; max-width: 90%; }
-  .letter.show { transform: scale(1) translateY(-150px); }
-  .letter h1 { font-size: 22px; }
-  #message { font-size: 15px; }
-  .text-container { width: 90%; padding: 20px 15px; }
+    0 0 40px #ff1493;
 }
 </style>
 </head>
@@ -201,22 +176,15 @@ porque tu representas todo mi mundo.
 
 Te amo y siempre lo haré.`;
 
-
 let charIndex = 0;
+
 function typeWriter() {
   if (charIndex < message.length) {
-    const char = message.charAt(charIndex);
-    document.getElementById("message").innerHTML += char === "\n" ? "<br>" : char;
+    document.getElementById("message").textContent += message.charAt(charIndex);
     charIndex++;
-
-    let speed = 20;          // velocidad base (mas rapido)
-    if (char === "\n") speed = 250;          // pausa en parrafos
-    if (char === "," || char === ".") speed = 120; // pausa natural al leer
-
-    setTimeout(typeWriter, speed);
+    setTimeout(typeWriter, 20);
   }
 }
-
 
 document.getElementById("envelopeContainer").onclick = function() {
   this.classList.add("open");
