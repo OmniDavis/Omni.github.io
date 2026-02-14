@@ -18,7 +18,6 @@ body {
   overflow-x: hidden;
 }
 
-/* TEXTO HINT */
 .hint {
   color: white;
   font-size: 20px;
@@ -31,61 +30,47 @@ body {
 .hint.hide { opacity: 0; transform: translateY(-30px); }
 @keyframes float { 0%,100% {transform:translateY(0);} 50% {transform:translateY(-8px);} }
 
-/* SOBRE */
 .envelope-container { width: 320px; height: 220px; position: relative; cursor: pointer; margin-bottom: 40px; z-index: 2; }
-.envelope { width: 100%; height: 100%; background: #ff6f91; border-radius: 8px; position: relative; overflow: hidden; box-shadow: 0 15px 35px rgba(0,0,0,0.3); transition: transform 0.3s; animation: idle 3s infinite ease-in-out; }
-.envelope:hover { transform: scale(1.02); }
+.envelope { width: 100%; height: 100%; background: #ff6f91; border-radius: 8px; position: relative; overflow: hidden; box-shadow: 0 15px 35px rgba(0,0,0,0.3); animation: idle 3s infinite ease-in-out; }
 @keyframes idle { 0%,100%{transform:scale(1);}50%{transform:scale(1.05);} }
 .flap { position:absolute; top:0; left:0; width:100%; height:100%; background:#ff8fab; clip-path: polygon(0 0, 100% 0, 50% 50%); transform-origin:top center; transition: transform 1.2s ease; z-index:3; }
-.envelope-container.open .envelope { animation: chest 1s forwards; }
 .envelope-container.open .flap { transform: rotateX(180deg); }
-@keyframes chest {0%{transform:scale(1);}30%{transform:scale(1.1) rotate(2deg);}50%{transform:scale(1.15) rotate(-2deg);}70%{transform:scale(1.1) rotate(2deg);}100%{transform:scale(1); }}
 
-/* CARTA */
 .letter {
   position: relative;
-  background: transparent;
   padding: 20px 30px;
   border-radius: 15px;
   max-width: 550px;
   width: 90%;
   aspect-ratio: 3/4;
-  margin: 0 auto;
   box-shadow: 0 20px 40px rgba(0,0,0,0.3);
-  transform: scale(0.55) translateY(0);
+  transform: scale(0.55);
   opacity: 0;
   transition: all 1.2s ease;
   overflow: hidden;
   display: flex;
-  flex-direction: column;
-  align-items: center;
+  justify-content: center;
 }
 
-/* Fondo */
 .letter::before {
   content:"";
   position:absolute;
   inset:0;
-  background: url('fondo-flores.jpg') no-repeat center center;
+  background: url('fondo-flores.jpg') no-repeat center;
   background-size: 100% 100%;
   border-radius: 15px;
   z-index: 0;
 }
-
-.letter h1,
-#message { position: relative; z-index: 1; }
 
 .letter.show {
   transform: scale(1) translateY(-200px);
   opacity: 1;
 }
 
-/* CONTENEDOR */
 .text-container {
   position: relative;
   z-index: 1;
   width: 85%;
-  max-width: 450px;
   height: 60%;
   overflow-y: auto;
   display: flex;
@@ -98,28 +83,17 @@ body {
 
 .text-container::-webkit-scrollbar { width: 0; }
 
-/* TITULO */
 .letter h1 {
   color: #fff;
-  margin: 0;
-  text-align: center;
   font-size: 26px;
   text-shadow: 0 0 10px #ff6f91,0 0 20px #ff6f91,0 0 40px #ff1493;
-  animation: neon-flicker 1.5s infinite alternate;
 }
 
-@keyframes neon-flicker {
-  0%,100% { text-shadow: 0 0 10px #ff6f91,0 0 20px #ff6f91,0 0 40px #ff1493; }
-  50% { text-shadow: none; }
-}
-
-/* MENSAJE */
 #message {
   color: #fff;
   font-size: 17px;
   line-height: 1.6;
   text-align: center;
-  min-height: 100px;
   white-space: pre-line;
   text-shadow: 0 0 10px #ff6f91,0 0 20px #ff6f91,0 0 40px #ff1493;
 }
@@ -170,37 +144,22 @@ Te amo y siempre lo haré.`;
 
 let charIndex = 0;
 const box = document.querySelector('.text-container');
-let autoStarted = false;
 
 function typeWriter() {
   if (charIndex < message.length) {
     const char = message.charAt(charIndex);
-    document.getElementById("message").textContent += char;
+    const msg = document.getElementById("message");
+    msg.textContent += char;
     charIndex++;
+
+    // SCROLL AUTOMATICO REAL
+    box.scrollTop = box.scrollHeight;
 
     let speed = 35;
     if (char === "." || char === ",") speed = 140;
     if (char === "\n") speed = 220;
 
     setTimeout(typeWriter, speed);
-  } else {
-    startAutoScroll();
-  }
-}
-
-let scrollSpeed = 0.4;
-
-function autoScroll() {
-  if (box.scrollHeight > box.clientHeight) {
-    box.scrollTop += scrollSpeed;
-  }
-  requestAnimationFrame(autoScroll);
-}
-
-function startAutoScroll(){
-  if(!autoStarted){
-    autoStarted = true;
-    autoScroll();
   }
 }
 
@@ -210,8 +169,7 @@ document.getElementById("envelopeContainer").onclick = function() {
   document.getElementById("hint").classList.add("hide");
 
   setTimeout(() => {
-    const letter = document.getElementById("letter");
-    letter.classList.add("show");
+    document.getElementById("letter").classList.add("show");
     setTimeout(typeWriter, 500);
   }, 1200);
 };
