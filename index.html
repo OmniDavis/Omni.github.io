@@ -204,13 +204,19 @@ Te amo y siempre lo haré.`;
 
 let charIndex = 0;
 function typeWriter() {
-  if(charIndex < message.length) {
+  if (charIndex < message.length) {
     const char = message.charAt(charIndex);
     document.getElementById("message").innerHTML += char === "\n" ? "<br>" : char;
     charIndex++;
-    setTimeout(typeWriter, 60);
+
+    let speed = 20;          // velocidad base (mas rapido)
+    if (char === "\n") speed = 250;          // pausa en parrafos
+    if (char === "," || char === ".") speed = 120; // pausa natural al leer
+
+    setTimeout(typeWriter, speed);
   }
 }
+
 
 document.getElementById("envelopeContainer").onclick = function() {
   this.classList.add("open");
