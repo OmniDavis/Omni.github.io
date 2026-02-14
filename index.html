@@ -16,7 +16,8 @@ body {
   justify-content: flex-start;
   padding: 20px;
   overflow-x: hidden;
-  transition: background 2s cubic-bezier(.19,1,.22,1); /* SUAVE */
+  transition: background 4s cubic-bezier(.19,1,.22,1);
+
 }
 
 /* FONDO OSCURO AL ABRIR */
@@ -179,7 +180,7 @@ function typeWriter() {
 
     box.scrollTop = box.scrollHeight;
 
-    let speed = 35;
+    let speed = 65;
     if (char === "." || char === ",") speed = 140;
     if (char === "\n") speed = 220;
 
