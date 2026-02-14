@@ -4,156 +4,200 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Para ti 💌</title>
-
 <style>
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-}
+* { margin: 0; padding: 0; box-sizing: border-box; font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
 
 body {
   min-height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background: #ffc0cb;
-  transition: background 1.8s ease;
-}
-
-body.open {
-  background: #0e0e14;
-}
-
-.envelope {
-  width: 420px;
-  height: 280px;
-  background: #ff8fa3;
-  border-radius: 12px;
-  cursor: pointer;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  font-size: 28px;
-  color: white;
-  box-shadow: 0 15px 40px rgba(0,0,0,0.4);
-  transition: all 1s ease;
-}
-
-.envelope.hide {
-  transform: scale(0);
-  opacity: 0;
-  pointer-events: none;
-}
-
-.card-frame {
-  display: none;
-  padding: 18px;
-  border-radius: 22px;
-  background: url("fondo-flores.jpg") center/cover;
-  box-shadow:
-    0 0 20px #ff6fff,
-    0 0 40px #ff6fff,
-    0 0 60px rgba(255,111,255,0.6);
-}
-
-.card {
-  width: 360px;
-  height: 520px;
-  background: rgba(0,0,0,0.75);
-  border-radius: 16px;
-  padding: 18px;
+  background: #f8b4c6;
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: flex-start;
+  padding: 20px;
+  overflow-x: hidden;
+  transition: background 2s cubic-bezier(.19,1,.22,1); /* SUAVE */
 }
 
-.card video, .card img {
-  width: 100%;
-  border-radius: 12px;
-  margin-bottom: 10px;
+/* FONDO OSCURO AL ABRIR */
+body.opened {
+  background: radial-gradient(circle at top, #2a2a2a, #0b0b0b);
 }
 
-.title {
-  font-size: 26px;
-  color: #ff7ad9;
-  text-shadow: 0 0 12px #ff7ad9;
-  margin-bottom: 8px;
+.hint {
+  color: white;
+  font-size: 20px;
+  margin-bottom: 20px;
+  text-shadow: 0 2px 10px rgba(0,0,0,0.3);
+  animation: float 2s infinite;
+  transition: all 0.8s;
+  z-index: 10;
 }
+.hint.hide { opacity: 0; transform: translateY(-30px); }
+@keyframes float { 0%,100% {transform:translateY(0);} 50% {transform:translateY(-8px);} }
 
-.text-box {
-  flex: 1;
-  width: 100%;
-  overflow: hidden;
-  color: #ffd6f5;
-  text-align: center;
-  line-height: 1.6;
-  font-size: 15px;
+.envelope-container { width: 320px; height: 220px; position: relative; cursor: pointer; margin-bottom: 40px; z-index: 2; }
+.envelope { width: 100%; height: 100%; background: #ff6f91; border-radius: 8px; position: relative; overflow: hidden; box-shadow: 0 15px 35px rgba(0,0,0,0.3); animation: idle 3s infinite ease-in-out; }
+@keyframes idle { 0%,100%{transform:scale(1);}50%{transform:scale(1.05);} }
+.flap { position:absolute; top:0; left:0; width:100%; height:100%; background:#ff8fab; clip-path: polygon(0 0, 100% 0, 50% 50%); transform-origin:top center; transition: transform 1.2s ease; z-index:3; }
+.envelope-container.open .flap { transform: rotateX(180deg); }
+
+.letter {
   position: relative;
+  padding: 20px 30px;
+  border-radius: 15px;
+  max-width: 550px;
+  width: 90%;
+  aspect-ratio: 3/4;
+  box-shadow:
+    0 0 15px rgba(255,105,180,0.6),
+    0 0 35px rgba(255,20,147,0.6),
+    0 0 70px rgba(255,20,147,0.5); /* NEON */
+  transform: scale(0.55);
+  opacity: 0;
+  transition: all 1.4s cubic-bezier(.19,1,.22,1);
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
 }
 
-.text-content {
-  position: absolute;
-  width: 100%;
-  top: 0;
-  left: 0;
+.letter::before {
+  content:"";
+  position:absolute;
+  inset:0;
+  background: url('fondo-flores.jpg') no-repeat center;
+  background-size: 100% 100%;
+  border-radius: 15px;
+  z-index: 0;
 }
 
+@keyframes neonPulse {
+  0%,100% {
+    box-shadow:
+      0 0 15px rgba(255,105,180,0.5),
+      0 0 35px rgba(255,20,147,0.5),
+      0 0 70px rgba(255,20,147,0.4);
+  }
+  50% {
+    box-shadow:
+      0 0 25px rgba(255,105,180,0.8),
+      0 0 55px rgba(255,20,147,0.8),
+      0 0 100px rgba(255,20,147,0.7);
+  }
+}
+
+.letter.show {
+  transform: scale(1) translateY(-200px);
+  opacity: 1;
+  animation: neonPulse 3s infinite; /* PULSO */
+}
+
+.text-container {
+  position: relative;
+  z-index: 1;
+  width: 85%;
+  height: 60%;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+  padding: 30px 20px 140px;
+  margin-top: 180px;
+}
+
+.text-container::-webkit-scrollbar { width: 0; }
+
+.letter h1 {
+  color: #fff;
+  font-size: 26px;
+  text-shadow: 0 0 10px #ff6f91,0 0 20px #ff6f91,0 0 40px #ff1493;
+}
+
+#message {
+  color: #fff;
+  font-size: 17px;
+  line-height: 1.6;
+  text-align: center;
+  white-space: pre-line;
+  text-shadow: 0 0 10px #ff6f91,0 0 20px #ff6f91,0 0 40px #ff1493;
+}
 </style>
 </head>
-
 <body>
 
-<div class="envelope" onclick="openCard()">
-  💌 Abrir carta
+<h2 class="hint" id="hint">Haz click en la carta 💌</h2>
+
+<div class="envelope-container" id="envelopeContainer">
+  <div class="envelope">
+    <div class="flap"></div>
+  </div>
 </div>
 
-<div class="card-frame" id="frame">
-  <div class="card">
-    <img src="cea6a265-b267-49b0-80b1-eb29f8211a44.png">
-
-    <div class="title">Hola mi amor 💕</div>
-
-    <div class="text-box" id="box">
-      <div class="text-content" id="content">
-        Holi mamorororororo.<br><br>
-
-        A traves de esta carta quise mostrarte mi mundo.<br><br>
-
-        El otro dia te mostre como con palabras hacia muchas cosas,<br>
-        y ahora quise enseñarte como esas palabras pueden hacer<br>
-        algo lindo para ti, ya que mi mundo es este.<br><br>
-
-        Todo lo que estas viendo lo hice yo mismo.<br><br>
-
-        Y lo hice pensando en ti 💖<br><br>
-        Y lo volveria a hacer mil veces mas.
-      </div>
-    </div>
+<div class="letter" id="letter">
+  <div class="text-container">
+    <h1>Hola mi amor 💕</h1>
+    <div id="message"></div>
   </div>
 </div>
 
 <script>
-const box = document.getElementById("box");
-const content = document.getElementById("content");
-let speed = 0.25;
+const message = `Holi mamorororororo.
 
-function openCard() {
-  document.body.classList.add("open");
-  document.querySelector(".envelope").classList.add("hide");
-  document.getElementById("frame").style.display = "block";
-  setTimeout(autoScroll, 1500);
-}
+A traves de esta carta quise mostrarte mi mundo.
 
-function autoScroll() {
-  if (content.offsetHeight > box.clientHeight) {
-    box.scrollTop += speed;
-    if (box.scrollTop + box.clientHeight < content.offsetHeight) {
-      requestAnimationFrame(autoScroll);
-    }
+El otro dia te mostre como con palabras hacia muchas cosas,
+y ahora quise enseñarte como esas palabras pueden hacer
+algo lindo para ti, ya que mi mundo es este.
+
+Todo lo que estas viendo lo hice yo mismo.
+
+Te amo mamor.
+
+Se que es poquisimo tiempo lo que literalmente llevamos,
+pero igualmente eso no impedira que pueda
+hacerte cosas como estas,
+donde pueda mostrarte de distintas maneras cuanto te amo
+y cuanto puedo amarte de aqui para siempre.
+
+Se que esto no esta a la altura de las ultimas cosas
+que te llegue a hacer en su momento,
+pero igualmente quise darte algo
+porque tu representas todo mi mundo.
+
+Te amo y siempre lo haré.`;
+
+let charIndex = 0;
+const box = document.querySelector('.text-container');
+
+function typeWriter() {
+  if (charIndex < message.length) {
+    const char = message.charAt(charIndex);
+    const msg = document.getElementById("message");
+    msg.textContent += char;
+    charIndex++;
+
+    box.scrollTop = box.scrollHeight;
+
+    let speed = 35;
+    if (char === "." || char === ",") speed = 140;
+    if (char === "\n") speed = 220;
+
+    setTimeout(typeWriter, speed);
   }
 }
+
+document.getElementById("envelopeContainer").onclick = function() {
+  document.body.classList.add("opened");
+  this.classList.add("open");
+  this.style.opacity = "0";
+  document.getElementById("hint").classList.add("hide");
+
+  setTimeout(() => {
+    document.getElementById("letter").classList.add("show");
+    setTimeout(typeWriter, 500);
+  }, 1200);
+};
 </script>
 
 </body>
