@@ -19,11 +19,26 @@ body {
   transition: background 4s cubic-bezier(.19,1,.22,1);
 }
 
-/* FONDO OSCURO AL ABRIR */
-body.opened {
+/* CAPA DE FONDO SUAVE */
+body::after {
+  content:"";
+  position: fixed;
+  inset: 0;
   background: radial-gradient(circle at top, #2a2a2a, #0b0b0b);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 4s cubic-bezier(.19,1,.22,1);
+  z-index: 0;
 }
 
+/* CUANDO SE ABRE LA CARTA */
+body.opened::after {
+  opacity: 1;
+}
+
+/* body.opened { background: radial-gradient(circle at top, #2a2a2a, #0b0b0b); }  <-- línea eliminada */
+
+/* resto del CSS original */
 .hint {
   color: white;
   font-size: 20px;
@@ -196,7 +211,7 @@ document.getElementById("envelopeContainer").onclick = function() {
   setTimeout(() => {
     document.getElementById("letter").classList.add("show");
     setTimeout(typeWriter, 500);
-  }, 800); <!-- UNICO CAMBIO -->
+  }, 800);
 };
 </script>
 
