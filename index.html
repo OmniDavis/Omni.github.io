@@ -16,6 +16,12 @@ body {
   justify-content: flex-start;
   padding: 20px;
   overflow-x: hidden;
+  transition: background 1.2s ease;
+}
+
+/* FONDO OSCURO AL ABRIR */
+body.opened {
+  background: radial-gradient(circle at top, #2a2a2a, #0b0b0b);
 }
 
 .hint {
@@ -152,7 +158,6 @@ function typeWriter() {
     msg.textContent += char;
     charIndex++;
 
-    // SCROLL AUTOMATICO REAL
     box.scrollTop = box.scrollHeight;
 
     let speed = 35;
@@ -164,6 +169,7 @@ function typeWriter() {
 }
 
 document.getElementById("envelopeContainer").onclick = function() {
+  document.body.classList.add("opened"); // 👈 fondo oscuro
   this.classList.add("open");
   this.style.opacity = "0";
   document.getElementById("hint").classList.add("hide");
